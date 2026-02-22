@@ -244,7 +244,7 @@ export default function Home() {
         <div
           className={`${header.className} text-3xl font-bold text-[#FA3A91] md:text-5xl`}
         >
-          LINI MASA
+          LINI MASA Test
         </div>
         <div className=" h-full w-[70%] md:my-[100px]">
           <div
