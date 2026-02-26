@@ -2,7 +2,7 @@ import localFont from "next/font/local";
 import { Montserrat, Open_Sans } from "next/font/google";
 
 const header = localFont({
-  src: "/fonts/Anisette.otf",
+  src: "/fonts/Sexsmith.ttf",
   variable: "--font-header",
 });
 
@@ -17,7 +17,7 @@ const clashDisplay = {
 };
 
 const body = localFont({
-  src: "/fonts/ClashDisplay-Variable.ttf",
+  src: "/fonts/Unbounded.ttf",
 });
 
 const bodyBold = localFont({
