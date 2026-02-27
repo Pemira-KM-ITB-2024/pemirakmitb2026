@@ -1,52 +1,42 @@
 
 import React from "react";
-import Image from "next/image";
-import BintangPink from "public/profil/bintangpink.png";
-import BintangKuning from "public/profil/bintangkuning.png"
 import { KProfileCard, MProfileCard } from "../components/profilecard";
 import { header } from "~/styles/fonts";
 
 const ProfilCalon = () => {
   return (
-    <div className="relative w-full min-h-screen bg-[url('/guidevoting/background.png')] bg-cover lg:bg-500 bg-center overflow-x-hidden lg:overflow-hidden">
-        <div className="overflow-hidden lg:absolute lg:-top-56 lg:-left-40 lg:w-[450px] absolute w-[200px] left-[-60px] -top-[100px]">
-          <Image src={BintangPink} alt="Star" layout="responsive"  />
+    <div className="relative min-h-screen w-full overflow-x-hidden">
+        <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+          <img
+            src="/bg-pemira26.png"
+            alt=""
+            className="inset-0 h-full w-full origin-top scale-y-[1.05] object-fill opacity-100"
+          />
+          <div className="absolute inset-0 bg-[#11688a] opacity-10 mix-blend-screen" />
         </div>
-        <div className="lg:absolute lg:-top-32 lg:-right-34 lg:w-[450px] absolute w-[200px] right-[-42px] -top-16">
-          <Image src={BintangKuning} alt="Star" layout="responsive" />
-        </div>
-        <div className="lg:flex lg:items-center lg:justify-center flex flex-row justify-center items-center mt-4 sm:mt-8 md:mt-16 lg:mt-32">
-          <h1
-            className={`${header.variable} text-4xl md:text-6xl lg:text-8xl font-bold text-[#FA3A91] [text-shadow:_4px_4px_0_rgb(0_0_0_/_80%)] -skew-x-12 mr-1 lg:mr-1`}
-          >
-            K
+      <main className="relative z-10 flex min-h-screen w-full flex-col bg-[#fff6e0]/74 px-4 pb-24 pt-10 sm:px-6 lg:px-10">
+        <section className="mb-12 flex flex-col items-center gap-5 sm:mb-16 sm:gap-8">
+          <h1 className={`${header.variable} mt-4 text-center text-7xl font-normal leading-none text-blue-800 font-['Sexsmith'] sm:text-8xl md:translate-y-[200px] md:text-[11rem] lg:translate-y-[18px] lg:text-[13rem]`}>
+            K3M
           </h1>
-          <h1
-            className={`${header.variable} text-4xl md:text-6xl lg:text-8xl font-bold text-[#FA3A91] [text-shadow:_4px_4px_0_rgb(0_0_0_/_80%)] skew-x-12 ml-1 lg:ml-1`}
-          >
-            3M
-          </h1>
-        </div>
-        <div className="flex justify-center items-center gap-8 mt-8">
-            < KProfileCard />
-        </div>
+          <div className="w-full">
+            <KProfileCard />
+          </div>
+          <div className="w-full md:-mt-52">
+            <KProfileCard />
+          </div>
+        </section>
 
-        <div className="lg:flex lg:items-center lg:justify-center flex flex-row justify-center items-center mt-4 sm:mt-8 md:mt-16 lg:mt-32">
-          <h1
-            className={`${header.variable} text-4xl md:text-6xl lg:text-8xl font-bold text-[#FFE859] [text-shadow:_4px_4px_0_rgb(0_0_0_/_80%)] -skew-x-12 mr-1 lg:mr-1`}
-          >
-            MWA
+        <section className="-mt-10 mb-16 flex flex-col items-center gap-5 sm:mt-0 sm:mb-20 sm:gap-8 md:-mt-24">
+          <h1 className={`${header.variable} mt-4 text-center text-7xl font-normal leading-none text-blue-800 font-['Sexsmith'] sm:text-8xl md:text-[11rem] lg:text-[13rem]`}>
+            MWA-WM
           </h1>
-          <h1
-            className={`${header.variable} text-4xl md:text-6xl lg:text-8xl font-bold text-[#FFE859] [text-shadow:_4px_4px_0_rgb(0_0_0_/_80%)] skew-x-12 ml-1 lg:ml-1`}
-          >
-            -WM
-          </h1>
-        </div>
-        <div className="flex justify-center items-center gap-8 mt-8 mb-[244px] z-10">
-            < MProfileCard />
-        </div>
+          <div className="w-full">
+            <MProfileCard />
+          </div>
+        </section>
 
+      </main>
     </div>
   );
 };

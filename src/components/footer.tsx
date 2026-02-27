@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Asap from "public/asapbos.png"; // Ensure the path is correct
+import Vector1894 from "public/dekor-f26/vector-18-94.svg";
 import Logo from "public/logopemira.png";
 import Pemira from "public/gambarpemira.png";
 import Link from "next/link";
-import { FaInstagram, FaTiktok } from "react-icons/fa";
-import { type ReactNode } from "react";
+import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { type ReactNode } from "react";
 import { body } from "@fonts";
 import { IoIosMail } from "react-icons/io";
 
@@ -13,131 +13,88 @@ const Footer = () => {
   return (
     <footer className="h-fit w-[100%] flex flex-col">
       <div className="relative flex flex-col items-center">
-        <div className="absolute flex-col items-center z-0 h-full md:h-[60vw] w-full scale-x-[1.2] rounded-t-[80%] bg-[#FA3A91] md:scale-x-[1.1]"></div>
-        <div className="absolute w-full -top-[30vw] md:-top-[18vw] z-10 flex justify-between p-4 flex-row">
-          {/* Left Smoke Image */}
-          <div className="relative justify-start md:justify-start w-[100vw] h-[60vw] md:w-[40vw] md:h-[45vw]">
-            <Image
-              src={Asap}
-              layout="fill"
-              alt="Asap"
-              className="scale-x-[-1]"
+        <div className="absolute w-[4330px] h-[1145px] bg-blue-800 blur-[100px]" />
+        <div className="absolute z-10 -top-[30vw] flex w-full flex-row justify-between p-4 md:-top-[18vw]">
+          <div className="absolute left-4 top-[-90px] md:left-6 md:top-[-120px]">
+            <Image 
+              src={Vector1894}
+              width={247}
+              height={269}
+              alt="Vector 01 kiri"
+              className="h-[234px] w-[234px] object-contain"
             />
           </div>
-    
-          <div className="relative justify-end md:justify-end w-[100vw] h-[60vw] md:w-[40vw] md:h-[45vw]">
-            <Image
-              src={Asap}
-              layout="fill"
-              alt="Asap"
-              className=""
+
+          <div className="absolute right-4 top-[-90px] md:right-6 md:top-[-120px]">
+            <Image 
+              src={Vector1894}
+              width={247}
+              height={269}
+              alt="Vector 01 kanan"
+              className="h-[234px] w-[234px] object-contain"
             />
           </div>
         </div>
 
-      {/* Center Logo and Pemira Images */}
-      <div className="relative z-10 flex-col justify-evenly text-center hidden">
-        <div className="flex flex-col items-center justify-center max-w-[220px]">
-          <div className="relative w-[12vw] h-[14vw]">
-            <Image src={Logo} layout="fill" alt="Logo" className="" />
+        {/* Social Media Icons - 1 kolom tengah */}
+        <div className="z-10 mt-12 mb-6 flex w-full flex-col items-center justify-center">
+          <div className="mb-8 flex flex-col items-center justify-center gap-3 text-center">
+            <h2 className="text-[10vw] text-white md:text-[4vw]">YUK BERIKAN SUARAMU!</h2>
+            <button className="rounded-[47px] bg-[#00b38d] px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#019878] md:px-12 md:py-4 md:text-xl">
+              MULAI VOTING
+            </button>
           </div>
-          <div className="w-[20vw] h-[12vw] relative -mt-[2vw]">
-            <Image
-              src={Pemira}
-              layout="fill"
-              alt="Logo bawah"
-              className=""
-            />
-          </div>
-        </div>
-      </div>
 
-      {/* Social Media Icons */}
-        <div className="w-[80vw] md:w-[45vw] flex flex-col items-center justify-center md:items-start md:justify-center md:flex-row md:gap-4 mt-12 z-10 mb-6">
-          <div className="md:hidden flex flex-col items-center justify-center max-w-[14vw]">
-            <div className="relative w-[30vw] h-[30vw]">
-              <Image src={Logo} layout="fill" alt="Logo" className="" />
+          <div className="mb-4 flex flex-col items-center justify-center">
+            <div className="relative h-[30vw] w-[30vw] md:h-[14vw] md:w-[14vw]">
+              <Image src={Logo} fill alt="Logo" />
             </div>
-            <div className="w-[80vw] h-[48vw] relative -mt-[12vw] -mb-[6vw]">
-              <Image
-                src={Pemira}
-                layout="fill"
-                alt="Logo bawah"
-                className=""
-              />
+            <div className="relative -mt-[12vw] -mb-[6vw] h-[48vw] w-[80vw] md:-mt-[2vw] md:-mb-[2vw] md:h-[12vw] md:w-[20vw]">
+              <Image src={Pemira} fill alt="Logo bawah" />
             </div>
-          </div>
-          <div className="flex justify-center md:justify-end w-full md:w-[12vw] leading-[1]">
-            <div className="flex flex-col h-fit md:h-[40%] w-full md:justify-between md:mt-6 md:gap-4">
-              <LinkIcon href="https://www.instagram.com/pemirakmitb2025/">
-                <div className="text-[4vw] md:text-[1vw]">
-                  <FaInstagram/>{" "}
-                </div>
-                <span className={``}>PEMIRA KM ITB 2025</span>
-              </LinkIcon>
-              <LinkIcon href="https://www.twitter.com/pemirakmitb/">
-                <div className="text-[4vw] md:text-[1vw]">
-                  <FaXTwitter />{" "}
-                </div>
-                <span className={``}>PEMIRA KM ITB 2025</span>
-              </LinkIcon>
-              {/* <LinkIcon href="https://www.tiktok.com/@pemirakmitb2024/">
-                <FaTiktok />{" "}
-                <span className={``}>PEMIRA KM ITB 2024</span>
-              </LinkIcon> */}
-            </div>
-          </div> 
-          <div className="hidden md:flex flex-col items-center justify-center max-w-[14vw]">
-            <div className="relative w-[14vw] h-[14vw]">
-              <Image src={Logo} layout="fill" alt="Logo" className="" />
-            </div>
-            <div className="w-[20vw] h-[12vw] relative -mt-[2vw] -mb-[2vw] -z-10">
-              <Image
-                src={Pemira}
-                layout="fill"
-                alt="Logo bawah"
-                className=""
-              />
-            </div>
-            <div className="text-[12px] md:text-[1vw] flex items-center justify-center gap-2 p-2 font-bold text-white">
+            <div className="flex items-center justify-center gap-2 p-2 text-[12px] font-bold text-white md:text-[1vw]">
               <IoIosMail />
               pemira@km.itb.ac.id
             </div>
           </div>
-          <div className="flex justify-center md:justify-start w-full md:w-[12vw] leading-[1]">
-            <div className="flex flex-col h-fit md:h-[40%] w-fit md:justify-between md:mt-6 md:gap-4">
-              <LinkIcon href="https://www.instagram.com/km.itb/">
-                <div className="text-[4vw] md:text-[1vw]">
-                  <FaInstagram className="w-5 h-5 object-cover"/>{" "}
-                </div>
-                <span className={``}>Kabinet KM ITB</span>
-              </LinkIcon>
-              <LinkIcon href="https://www.twitter.com/KM_ITB/">
-                <div className="text-[4vw] md:text-[1vw]">
-                  <FaXTwitter className="text-lg"/>{" "}
-                </div>
-                <span className={``}>Kabinet KM ITB</span>
-              </LinkIcon>
-              <LinkIcon href="https://www.instagram.com/mwawm_itb/">
-                <div className="text-[4vw] md:text-[1vw]">
-                  <FaInstagram />{" "}
-                </div>
-                <span className={``}>MWA-WM ITB</span>
-              </LinkIcon>
-              <div className="md:hidden text-[12px] md:text-[1vw] flex items-center justify-center gap-2 p-2 font-bold text-white">
-                <IoIosMail />
-                pemira@km.itb.ac.id
-              </div>
-            </div>
+
+          <div className="flex flex-col items-center justify-center text-center">
+            <LinkIcon href="https://www.instagram.com/pemirakmitb2026/">
+              <FaInstagram />
+              <span>PEMIRA KM ITB 2026</span>
+            </LinkIcon>
+
+            <LinkIcon href="https://x.com/pemirakmitb2026">
+              <FaXTwitter />
+              <span>PEMIRA KM ITB 2026</span>
+            </LinkIcon>
+
+            <LinkIcon href="https://www.instagram.com/km.itb/">
+              <FaInstagram />
+              <span>Kabinet KM ITB</span>
+            </LinkIcon>
+
+            <LinkIcon href="https://www.twitter.com/KM_ITB/">
+              <FaXTwitter />
+              <span>Kabinet KM ITB</span>
+            </LinkIcon>
+
+            <LinkIcon href="https://www.instagram.com/mwawm_itb/">
+              <FaInstagram />
+              <span>MWA-WM ITB</span>
+            </LinkIcon>
           </div>
         </div>
-      </div>
-      {/* Footer Copyright */}
-      <div
-          className={`${body.className} relative z-10 w-full flex items-center justify-center bg-[#FFE859] py-4  text-sm font-bold md:text-lg md:font-extrabold`}
-        >
-          <p>©2025 Copyright: Divisi IT PEMIRA KM ITB 2025</p>
+
+        <div className="pointer-events-none absolute inset-x-0 top-0 z-10">
         </div>
+      </div>
+
+      <div
+        className={`${body.className} relative z-10 flex w-full items-center justify-center bg-[#FFFFFF] py-4 text-sm font-bold md:text-lg md:font-extrabold`}
+      >
+        <p>©2026 Copyright: Divisi IT PEMIRA KM ITB 2026</p>
+      </div>
     </footer>
   );
 };
@@ -151,8 +108,9 @@ const LinkIcon = ({
 }) => {
   return (
     <Link href={href} target="_blank">
-      <div className="text-[12px] md:text-[1vw] flex items-center justify-center gap-2 p-2 font-bold text-white transition-colors hover:text-teal-2">
-        {children}
+      <div className="flex items-center justify-center gap-2 p-2 text-[12px] font-bold text-white transition-colors hover:text-teal-2 md:text-[1vw]">
+        <span className="text-[4vw] md:text-[1vw]">{Array.isArray(children) ? children[0] : children}</span>
+        <span>{Array.isArray(children) ? children.slice(1) : null}</span>
       </div>
     </Link>
   );

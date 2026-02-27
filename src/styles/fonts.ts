@@ -2,8 +2,13 @@ import localFont from "next/font/local";
 import { Montserrat, Open_Sans } from "next/font/google";
 
 const header = localFont({
-  src: "/fonts/Anisette.otf",
+  src: "/fonts/Sexsmith.otf",
   variable: "--font-header",
+});
+
+const sexsmith = localFont({
+  src: "./fonts/Sexsmith.otf",
+  variable: "--font-sexsmith",
 });
 
 const anisette = {
@@ -45,6 +50,7 @@ export {
   anisette,
   clashDisplay,
   header,
+  sexsmith,
   body,
   bodyBold,
   bodyBoldItalic,
