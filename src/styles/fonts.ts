@@ -22,7 +22,7 @@ const clashDisplay = {
 };
 
 const body = localFont({
-  src: "/fonts/ClashDisplay-Variable.ttf",
+  src: "/fonts/Unbounded.ttf",
 });
 
 const bodyBold = localFont({

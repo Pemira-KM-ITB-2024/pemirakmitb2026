@@ -1,145 +1,128 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import Logo from "../../public/Logo Transparan.png";
+import { useState, useRef, useEffect } from "react";
 import { body } from "@fonts";
-import { useState } from "react";
-import LoginButton from "./login";
 
 const Navbar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
+  const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  const navLinks = [
+  const mainLinks = [
     { href: "/", label: "Home" },
-    { href: "/profil-calon", label: "Profil Calon" },
-    { href: "/statistik", label: "Statistik" },
-    { href: "https://bit.ly/HearingZona2025", label: "Hearing Zona" },
-    { href: "/forsos", label: "Forsos" },
-    { href: "/pelaporan", label: "Pelaporan" },
-    { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP" },
+    { href: "/profil-calon", label: "Profil Kandidat" },
   ];
 
-  const handleOverlayClick = () => {
-    setIsExpanded(false);
-    setIsProfileDropdownOpen(false);
-  };
+  const menuLinks = [
+    { href: "", label: "Hearing" },
+    { href: "", label: "Live Report" },
+    { href: "", label: "Pelaporan" },
+    { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP" },
+    { href: "", label: "Sign in" },
+  ];
+
+  const activeIndex = Math.max(
+    0,
+    mainLinks.findIndex((link) => pathname === link.href),
+  );
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeTab = tabRefs.current[activeIndex];
+      if (activeTab) {
+        setIndicatorStyle({
+          width: activeTab.offsetWidth,
+          left: activeTab.offsetLeft,
+        });
+      }
+    };
+
+    updateIndicator();
+    window.addEventListener('resize', updateIndicator);
+    
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeIndex]);
 
   return (
-    <>
-      <nav className="fixed mb-24 top-0 z-[999] flex !h-16 w-full items-center justify-between bg-[#BEEF62] px-4 text-[#FA3A91] md:px-10">
-        <Link href="/">
-          <Image className="mr-2" src={Logo} height={60} alt="Logo" />
-        </Link>
-        <ul
-          className={`${body.className} flex items-center font-black *:px-4 *:transition-colors *:duration-300`}
-        >
-          {navLinks.map((link) => (
-            <li key={link.href} className="relative hidden md:block ">
-              <Link href={link.href}>
-                <span className="group relative">
-                  <span className="transition-colors duration-300 hover:text-[#FFAAB7]">
-                    {link.label}
-                  </span>
-                  {pathname === link.href && (
-                    <span
-                      className={`absolute bottom-[-4px] left-0 h-[3px] w-full bg-[#FA3A91] transition-all duration-300 group-hover:bg-[#FFAAB7]`}
-                    ></span>
-                  )}
-                </span>
-              </Link>
-            </li>
-          ))}
-          <li className="hidden md:block">
-            <LoginButton
-              isDropdownOpen={isProfileDropdownOpen}
-              setIsDropdownOpen={setIsProfileDropdownOpen}
-              closeMenu={() => setIsExpanded(false)}
-            />
-          </li>
-        </ul>
-        <div className="flex flex-row md:hidden items-center justify-between gap-4">
-          <div className="md:hidden">
-            <LoginButton
-              isDropdownOpen={isProfileDropdownOpen}
-              setIsDropdownOpen={setIsProfileDropdownOpen}
-              closeMenu={() => setIsExpanded(false)}
-            />
-          </div>
-          <button
-            onClick={() => {
-              setIsExpanded(!isExpanded);
-              setIsProfileDropdownOpen(false);
-            }}
-            className="flex flex-col gap-[5.5px] md:hidden"
-          >
-            <div
-              className={`h-[4px] w-[32px] bg-[#FA3A91] transition-all duration-300 ${
-                isExpanded ? "translate-y-[10px] rotate-45" : ""
-              }`}
-            ></div>
-            <div
-              className={`h-[4px] w-[32px] bg-[#FA3A91] transition-all duration-300 ${
-                isExpanded ? "opacity-0" : ""
-              }`}
-            ></div>
-            <div
-              className={`h-[4px] w-[32px] bg-[#FA3A91] transition-all duration-300 ${
-                isExpanded ? "translate-y-[-8px] -rotate-45" : ""
-              }`}
-            ></div>
-          </button>
-        </div>
-      </nav>
+    <div className={`${body.className} fixed left-1/2 -translate-x-1/2 top-4 md:left-auto md:translate-x-0 md:right-6 md:top-6 z-50 flex items-center gap-2 md:gap-4`}>
+      {/* Capsule */}
+      <div className="relative flex items-center rounded-full bg-[#0A8E8B] p-1 md:p-1.5">
+        <span
+          className="pointer-events-none absolute top-1 bottom-1 rounded-full bg-[#3FB8AF] transition-all duration-300 ease-out md:top-1.5 md:bottom-1.5"
+          style={{
+            width: `${indicatorStyle.width}px`,
+            left: `${indicatorStyle.left}px`,
+          }}
+        />
 
-      {isExpanded && (
-        <div
-          className="fixed inset-0 z-[998] bg-black opacity-70 transition-opacity duration-300 md:hidden"
-          onClick={handleOverlayClick}
-        ></div>
-      )}
+        {mainLinks.map((link, index) => {
+          const isActive = pathname === link.href;
 
-      <div
-        className={`fixed left-0 right-0 z-[999] rounded-b mt-16 bg-[#BEEF62] transition-opacity duration-300 ease-in-out md:hidden ${
-          isExpanded
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
-      >
-        <ul className={`flex flex-col text-[#FA3A91] ${body.className}`}>
-          {navLinks.map((link) => (
-            <li
+          return (
+            <Link
               key={link.href}
-              className={`group w-full  ${
-                pathname === link.href ? "bg-[#b3e251]" : ""
+              href={link.href}
+              ref={(el) => { tabRefs.current[index] = el; }}
+              className={`relative z-10 flex items-center justify-center rounded-full px-3 py-1.5 text-center text-[10px] whitespace-nowrap md:px-6 md:py-2 md:text-sm font-semibold transition-colors duration-300 ${
+                isActive ? "text-white" : "text-white hover:text-[#E8FFFA]"
               }`}
             >
+              {link.label}
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Hamburger */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full bg-[#0A8E8B]"
+      >
+        <div className="flex flex-col gap-1">
+          <span
+            className={`h-[2px] w-6 bg-white transition-all ${
+              isOpen ? "rotate-45 translate-y-[6px]" : ""
+            }`}
+          />
+          <span
+            className={`h-[2px] w-6 bg-white transition-all ${
+              isOpen ? "opacity-0" : ""
+            }`}
+          />
+          <span
+            className={`h-[2px] w-6 bg-white transition-all ${
+              isOpen ? "-rotate-45 -translate-y-[6px]" : ""
+            }`}
+          />
+        </div>
+      </button>
+
+      {/* Dropdown Menu */}
+      <div
+        className={`absolute right-0 top-14 w-52 md:w-72 origin-top-right rounded-[32px] md:rounded-[40px] bg-[#0A8E8B] p-6 md:p-10 shadow-xl transition-all duration-300 ease-out ${
+          isOpen
+            ? "translate-y-0 scale-100 opacity-100"
+            : "pointer-events-none -translate-y-2 scale-95 opacity-0"
+        }`}
+      >
+        <ul className="flex flex-col gap-4 md:gap-6 text-base md:text-lg font-medium text-white">
+          {menuLinks.map((link) => (
+            <li key={link.href}>
               <Link
                 href={link.href}
-                className="relative flex w-full items-center justify-center px-6 py-5 text-lg font-black transition-all duration-300"
-                onClick={() => {
-                  setIsExpanded(false);
-                }}
+                onClick={() => setIsOpen(false)}
+                className="transition-colors duration-300 hover:text-[#BEEF62]"
               >
-                <span className="relative z-10 transition-colors duration-300 ">
-                  {link.label}
-                  {pathname === link.href && (
-                    <span
-                      className={`absolute bottom-0 left-0 h-[3px] w-full bg-[#FA3A91] transition-all duration-300 group-hover:bg-[#FFAAB7]`}
-                    ></span>
-                  )}
-                </span>
-                
-                <span className="absolute inset-0 bg-[#b3e251] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></span>
+                {link.label}
               </Link>
             </li>
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 
