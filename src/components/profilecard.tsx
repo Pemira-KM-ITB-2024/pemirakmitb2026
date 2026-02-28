@@ -2,7 +2,7 @@ import React from "react";
 
 export const KProfileCard = () => {
   return (
-    <div className="relative mx-auto w-full max-w-[760px] px-1 md:mt-12 md:h-[1400px] md:max-w-[1344px] md:px-0">
+    <div className="relative mx-auto w-full max-w-[760px] px-1 md:mt-12 md:h-[1550px] md:max-w-[1344px] md:px-0">
       <div className="flex flex-col items-center md:block">
         <div className="h-24 w-24 rounded-full bg-rose-500 md:absolute md:left-1/2 md:top-[15px] md:h-56 md:w-56 md:-translate-x-1/2" />
 
@@ -39,12 +39,13 @@ export const KProfileCard = () => {
               Eos repudiandae doloremque hic fugiat similique id necessitatibus fugit aut deserunt impedit? Id incidunt accusantium et tempora tenetur qui quas nisi in ducimus magni et odit cupiditate? Sit officia autem eos animi placeat qui voluptas aliquam et optio consequatur hic dolor eligendi et possimus quia.
             </div>
           </div>
-        </div>
 
-        <div className="mt-5 inline-flex items-center justify-center gap-5 text-center md:absolute md:left-1/2 md:top-[1100px] md:mt-0 md:block md:h-10 md:w-[90%] md:-translate-x-1/2">
-          <div className="text-sm font-normal text-rose-500/60 underline md:absolute md:left-32 md:top-1/2 md:-translate-y-1/2 md:text-[24px]">PORTOFOLIO</div>
-          <div className="h-[3px] w-[3px] rounded-full bg-rose-500 md:absolute md:left-1/2 md:top-1/2 md:h-[6px] md:w-[6px] md:-translate-x-1/2 md:-translate-y-1/2" />
-          <div className="text-sm font-normal text-rose-500/60 underline md:absolute md:right-32 md:top-1/2 md:-translate-y-1/2 md:text-[24px]">@username</div>
+          <div className="grid w-full grid-cols-3 items-center text-center md:w-[90%] md:self-center">
+            <div className="text-left text-sm font-normal text-rose-500/60 underline md:text-[24px]">PORTOFOLIO</div>
+            <div className="mx-auto h-[3px] w-[3px] rounded-full bg-rose-500 md:h-[6px] md:w-[6px]" />
+            <div className="text-right text-sm font-normal text-rose-500/60 underline md:text-[24px]">@username</div>
+          </div>
+          
         </div>
       </div>
     </div>
