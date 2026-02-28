@@ -9,7 +9,7 @@ const Bg = ({ className, backgroundImage="/bg-pemira26.png", ...props }: BgProps
   return (
     <div
       className={cn(
-        "pointer-events-none fixed inset-0 -z-10 bg-[url('/bg-pemira26.png')] bg-[length:100%_auto] bg-top bg-no-repeaat",
+        "pointer-events-none fixed inset-0 -z-10 bg-[url('/bg-pemira26.png')] bg-[length:100%_auto] bg-top bg-no-repeat",
         className
       )}
       
