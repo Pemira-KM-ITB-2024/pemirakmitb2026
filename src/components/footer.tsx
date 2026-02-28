@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { type ReactNode } from "react";
 import { body, header } from "@fonts";
 import { IoIosMail } from "react-icons/io";
 
@@ -144,6 +145,23 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+  );
+};
+
+const LinkIcon = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) => {
+  return (
+    <Link href={href} target="_blank">
+      <div className="flex items-center justify-center gap-2 p-2 text-[12px] font-medium text-white transition-colors hover:text-teal-2 md:text-[1vw]">
+        <span className="text-[4vw] md:text-[1vw]">{Array.isArray(children) ? children[0] : children}</span>
+        <span>{Array.isArray(children) ? children.slice(1) : null}</span>
+      </div>
+    </Link>
   );
 };
 
