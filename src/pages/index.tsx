@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { sexsmith, unbounded } from "@fonts";
 
 export default function Home() {
@@ -9,6 +9,12 @@ export default function Home() {
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = window.innerWidth >= 768 ? 300 : 150;
+    }
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
@@ -29,7 +35,7 @@ export default function Home() {
     if (!isDragging || !scrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // Scroll speed multiplier
+    const walk = (x - startX) * 2;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -124,11 +130,12 @@ export default function Home() {
         <div className="relative flex min-w-full w-max items-start">
           <div className="hidden md:block flex-1" />
 
-          <div className="relative flex shrink-0 items-start px-4 md:px-[5vw] space-x-12 md:space-x-32">
-            <div className="absolute left-[46px] right-[46px] md:left-[calc(5vw+45px)] md:right-[calc(5vw+45px)] top-[26px] md:top-[39px] h-[8px] md:h-[12px] bg-[#EF476F] -z-10" />
+          <div className="relative flex shrink-0 items-start px-4 md:px-[5vw] gap-12 md:gap-32">
+
+            <div className="absolute left-[76px] right-[76px] md:left-[calc(5vw_+_90px)] md:right-[calc(5vw_+_90px)] top-[22px] md:top-[33px] h-[16px] md:h-[24px] bg-[#EF476F] z-0" />
 
             {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-              <div key={index} className="flex flex-col items-center gap-4">
+              <div key={index} className="relative z-10 flex flex-col items-center gap-4">
                 <div className="h-[60px] w-[60px] md:h-[90px] md:w-[90px] shrink-0 rounded-full bg-[#EF476F]" />
 
                 <div
