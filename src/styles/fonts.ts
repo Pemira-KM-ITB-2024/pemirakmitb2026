@@ -1,9 +1,14 @@
 import localFont from "next/font/local";
-import { Montserrat, Open_Sans } from "next/font/google";
+import { Montserrat, Open_Sans, Unbounded } from "next/font/google";
 
 const header = localFont({
   src: "/fonts/Anisette.otf",
   variable: "--font-header",
+});
+
+const sexsmith = localFont({
+  src: "../../public/fonts/Sexsmith.otf",
+  variable: "--font-sexsmith",
 });
 
 const anisette = {
@@ -41,10 +46,19 @@ const montserrat = Montserrat({
   display: "swap",
 });
 
+const unbounded = Unbounded({
+  weight: ["500"],
+  subsets: ["latin"],
+  variable: "--font-unbounded",
+  display: "swap",
+});
+
 export {
   anisette,
   clashDisplay,
   header,
+  sexsmith,
+  unbounded,
   body,
   bodyBold,
   bodyBoldItalic,
