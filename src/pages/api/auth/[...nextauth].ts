@@ -10,13 +10,28 @@ const baseUrl =
     ? "https://pemirakmitb.com"
     : "http://localhost:3000";
 
+const microsoftClientId = process.env.MICROSOFT_CLIENT_ID;
+const microsoftClientSecret = process.env.MICROSOFT_CLIENT_SECRET;
+const microsoftTenantId = process.env.MICROSOFT_TENANT_ID;
+const nextAuthSecret = process.env.NEXTAUTH_SECRET;
+
+if (!microsoftClientId || !microsoftClientSecret || !microsoftTenantId) {
+  throw new Error(
+    "Missing required Microsoft OAuth environment variables: MICROSOFT_CLIENT_ID, MICROSOFT_CLIENT_SECRET, MICROSOFT_TENANT_ID",
+  );
+}
+
+if (!nextAuthSecret) {
+  throw new Error("Missing required environment variable: NEXTAUTH_SECRET");
+}
+
 export default NextAuth({
   debug: true,
   providers: [
     AzureADProvider({
-      clientId: process.env.MICROSOFT_CLIENT_ID ?? "",
-      clientSecret: process.env.MICROSOFT_CLIENT_SECRET ?? "",
-      tenantId: process.env.MICROSOFT_TENANT_ID,
+      clientId: microsoftClientId,
+      clientSecret: microsoftClientSecret,
+      tenantId: microsoftTenantId,
       authorization: {
         params: {
           scope: "openid profile email",
@@ -32,7 +47,7 @@ export default NextAuth({
   jwt: {
     maxAge: 24 * 60 * 60,
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: nextAuthSecret,
   cookies: {
     sessionToken: {
       name:
