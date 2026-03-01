@@ -121,31 +121,36 @@ export default function Home() {
         onMouseMove={handleMouseMove}
         className={`-mt-2 w-full overflow-x-auto pb-8 pt-4 select-none md:mt-16 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
       >
-        <div className="relative flex min-w-max items-start px-4 md:px-[5vw] space-x-12 md:space-x-32">
+        <div className="relative flex min-w-full w-max items-start">
+          <div className="hidden md:block flex-1" />
 
-          <div className="absolute left-[46px] right-[46px] md:left-[calc(5vw+45px)] md:right-[calc(5vw+45px)] top-[26px] md:top-[39px] h-[8px] md:h-[12px] bg-[#EF476F] -z-10" />
+          <div className="relative flex shrink-0 items-start px-4 md:px-[5vw] space-x-12 md:space-x-32">
+            <div className="absolute left-[46px] right-[46px] md:left-[calc(5vw+45px)] md:right-[calc(5vw+45px)] top-[26px] md:top-[39px] h-[8px] md:h-[12px] bg-[#EF476F] -z-10" />
 
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-            <div key={index} className="flex flex-col items-center gap-4">
-              <div className="h-[60px] w-[60px] md:h-[90px] md:w-[90px] shrink-0 rounded-full bg-[#EF476F]" />
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
+              <div key={index} className="flex flex-col items-center gap-4">
+                <div className="h-[60px] w-[60px] md:h-[90px] md:w-[90px] shrink-0 rounded-full bg-[#EF476F]" />
 
-              <div
-                className="flex flex-col items-center gap-2"
-                style={{
-                  fontFamily: 'var(--font-unbounded), sans-serif',
-                  fontStyle: 'normal',
-                  lineHeight: 'normal',
-                }}
-              >
-                <span className="text-sm md:text-[24px] font-medium" style={{ color: '#0A8E8B' }}>
-                  Lorem ipsum
-                </span>
-                <span className="text-xs md:text-[18px] font-medium" style={{ color: '#12499D' }}>
-                  2 Des 2028
-                </span>
+                <div
+                  className="flex flex-col items-center gap-2"
+                  style={{
+                    fontFamily: 'var(--font-unbounded), sans-serif',
+                    fontStyle: 'normal',
+                    lineHeight: 'normal',
+                  }}
+                >
+                  <span className="text-sm md:text-[24px] font-medium" style={{ color: '#0A8E8B' }}>
+                    Lorem ipsum
+                  </span>
+                  <span className="text-xs md:text-[18px] font-medium" style={{ color: '#12499D' }}>
+                    2 Des 2028
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
+
+          <div className="hidden md:block flex-1" />
         </div>
       </div>
     </div>
