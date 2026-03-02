@@ -7,7 +7,7 @@ const header = localFont({
 });
 
 const sexsmith = localFont({
-  src: "../../public/fonts/Sexsmith.otf",
+  src: "/fonts/Sexsmith.otf",
   variable: "--font-sexsmith",
 });
 
