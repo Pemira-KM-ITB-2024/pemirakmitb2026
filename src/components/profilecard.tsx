@@ -169,13 +169,17 @@ const InfoCard = ({ title, content }: { title: string; content: string }) => (
   </div>
 );
 
-const SocialLink = ({ label, href, align }: { label: string; href: string; align: 'left' | 'right' }) => (
-  <a
-    className={`text-${align} text-sm font-normal text-rose-500/60 underline md:text-[24px] hover:text-rose-500 transition-colors`}
-    href={href}
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    {label}
-  </a>
-);
+const SocialLink = ({ label, href, align }: { label: string; href: string; align: 'left' | 'right' }) => {
+  const alignmentClass = align === 'left' ? 'text-left' : 'text-right';
+
+  return (
+    <a
+      className={`${alignmentClass} text-sm font-normal text-rose-500/60 underline md:text-[24px] hover:text-rose-500 transition-colors`}
+      href={href}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      {label}
+    </a>
+  );
+};
