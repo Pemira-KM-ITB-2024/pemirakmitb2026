@@ -6,23 +6,24 @@ const ALLOWED = new Set([
 ]);
 
 export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  // const { pathname } = request.nextUrl;
 
-  // Pass through: ALLOWED, Next.js internals, and static files
-  if (
-    ALLOWED.has(pathname) ||
-    pathname.startsWith("/_next/") ||
-    pathname.startsWith("/api/") ||
-    pathname.includes(".")
-  ) {
-    return NextResponse.next();
-  }
+  // // Pass through: ALLOWED, Next.js internals, and static files
+  // if (
+  //   ALLOWED.has(pathname) ||
+  //   pathname.startsWith("/_next/") ||
+  //   pathname.startsWith("/api/") ||
+  //   pathname.includes(".")
+  // ) {
+  //   return NextResponse.next();
+  // }
 
-  // Always redirect root and everything else to coming-soon
+  // // Always redirect root and everything else to coming-soon
 
-  const url = request.nextUrl.clone();
-  url.pathname = "/coming-soon";
-  return NextResponse.redirect(url);
+  // const url = request.nextUrl.clone();
+  // url.pathname = "/coming-soon";
+  // return NextResponse.redirect(url);
+  return NextResponse.next();
 }
 
 export const config = {
