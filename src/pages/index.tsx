@@ -239,14 +239,21 @@ export default function Home() {
 
   return (
     <div
-      className={`relative flex min-h-screen w-full flex-col items-center pt-8 pb-32 md:pt-32 md:pb-[400px] gap-6 bg-[#FFF6E0] ${sexsmith.variable} ${unbounded.variable}`}
-      style={{
-        backgroundImage: "url('/Group 4.png')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-      }}
+      className={`relative flex min-h-screen w-full flex-col items-center pt-8 pb-32 md:pt-32 md:pb-[400px] gap-6 ${sexsmith.variable} ${unbounded.variable}`}
     >
+      {/* Background color */}
+      <div className="fixed inset-0 -z-10 bg-[#FFF6E0]" />
+      {/* Background image */}
+      <div className="fixed inset-0 -z-10">
+        <Image
+          src="/Group 4.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      </div>
+      
       {/* PEMIRA HEADER */}
       <Image
         src="/pemiraheader.png"
@@ -285,7 +292,7 @@ export default function Home() {
       </div>
       {/* FORSOS */}
       <div
-        className="mt-6 flex h-[50px] w-[260px] md:h-[78px] md:w-[380px] items-center justify-center rounded-[25px] bg-[#F2B61E] cursor-pointer transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:brightness-110"
+        className="mt-6 flex h-[50px] w-[260px] md:h-[78px] md:w-[380px] items-center justify-center rounded-[39px] bg-[#F2B61E] cursor-pointer transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:brightness-110"
       >
         <span
           className="text-3xl md:text-[55px]"
