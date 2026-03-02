@@ -239,21 +239,8 @@ export default function Home() {
 
   return (
     <div
-      className={`relative flex min-h-screen w-full flex-col items-center pt-8 pb-32 md:pt-32 md:pb-[400px] gap-6 ${sexsmith.variable} ${unbounded.variable}`}
+      className={`relative flex min-h-screen w-full flex-col items-center pt-8 pb-32 md:pt-16 md:pb-[400px] gap-6 ${sexsmith.variable} ${unbounded.variable}`}
     >
-      {/* Background color */}
-      <div className="fixed inset-0 -z-10 bg-[#FFF6E0]" />
-      {/* Background image */}
-      <div className="fixed inset-0 -z-10">
-        <Image
-          src="/Group 4.png"
-          alt=""
-          fill
-          className="object-cover object-center"
-          priority
-        />
-      </div>
-      
       {/* PEMIRA HEADER */}
       <Image
         src="/pemiraheader.png"
