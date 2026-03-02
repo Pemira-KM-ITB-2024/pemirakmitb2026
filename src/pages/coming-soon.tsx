@@ -77,6 +77,7 @@ export default function ComingSoon() {
                 fontFamily: "var(--font-sexsmith), sans-serif",
                 fontWeight: 400,
               }}
+              suppressHydrationWarning
             >
               {value}
             </div>
