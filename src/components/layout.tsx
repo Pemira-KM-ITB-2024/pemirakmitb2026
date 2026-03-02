@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Navbar from "./navbar";
 import Footer from "./footer";
@@ -13,6 +14,18 @@ const Layout = ({ children }: { children?: ReactNode }) => {
 
   return (
     <FadeIn>
+      {/* Background color */}
+      <div className="fixed inset-0 -z-20 bg-[#FFF6E0]" />
+      {/* Background image */}
+      <div className="fixed inset-0 -z-10">
+        <Image
+          src="/Group 4.png"
+          alt=""
+          fill
+          className="object-cover object-center"
+          priority
+        />
+      </div>
       <Navbar />
       <div
         className={`${body.className} flex min-h-dvh w-[100vw] max-w-[100vw] flex-col overflow-x-hidden text-black`}
@@ -32,7 +45,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
             isProfilCalonPage
               ? undefined
               : {
-                  backgroundImage: "url(/bg-pemira26.png)",
+                  // backgroundImage: "url(/bg-pemira26.png)",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }
