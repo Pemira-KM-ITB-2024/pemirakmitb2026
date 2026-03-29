@@ -19,6 +19,7 @@ const Navbar = () => {
   const menuLinks = [
     { href: "", label: "Hearing" },
     { href: "", label: "Live Report" },
+    { href: "/hasil-pengumuman", label: "Hasil Pengumuman" },
     { href: "", label: "Pelaporan" },
     { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP" },
     { href: "", label: "Sign in" },
