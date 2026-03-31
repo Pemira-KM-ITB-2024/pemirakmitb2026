@@ -23,7 +23,7 @@ const isValidRanking = (rankings: number[], num: number): boolean => {
   return true;
 };
 
-const VOTE_DEADLINE = "2025-03-09T23:59:59.999+07:00";
+const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
@@ -62,10 +62,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     await prisma.$transaction(async (tx) => {
-      const user = await tx.user.update({
+      const user = await tx.user.findUnique({
         where: { email },
-        data: { hasVoted: true },
-      }).catch(() => null);
+      });
 
       if (!user) {
         throw new Error("USER_NOT_FOUND");
@@ -73,6 +72,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (user.hasVoted) {
         throw new Error("ALREADY_VOTED");
       }
+
+      await tx.user.update({
+        where: { email },
+        data: { hasVoted: true },
+      });
 
       const votes = [
         rankingsK3M && tx.voteK3M.create({
