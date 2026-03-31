@@ -4,6 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { body } from "@fonts";
+import { on } from "events";
+import { signIn } from "next-auth/react";
+import AzureAD from "next-auth/providers/azure-ad";
 
 const Navbar = () => {
   const pathname = usePathname();
@@ -17,11 +20,11 @@ const Navbar = () => {
   ];
 
   const menuLinks = [
-    { href: "", label: "Hearing" },
-    { href: "", label: "Live Report" },
-    { href: "", label: "Pelaporan" },
-    { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP" },
-    { href: "", label: "Sign in" },
+    { href: "", label: "Hearing", onClick: null},
+    { href: "", label: "Live Report", onClick: null},
+    { href: "", label: "Pelaporan", onClick: null},
+    { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP", onClick: null},
+    { href: "", label: "Sign in", onClick: () => signIn("azure-ad") },
   ];
 
   const activeIndex = Math.max(
@@ -113,7 +116,12 @@ const Navbar = () => {
             <li key={link.href}>
               <Link
                 href={link.href}
-                onClick={() => setIsOpen(false)}
+                onClick={async () => {
+                  setIsOpen(false);
+                  if (link.onClick) {
+                    await link.onClick()
+                  };
+                }}
                 className="transition-colors duration-300 hover:text-[#BEEF62]"
               >
                 {link.label}
