@@ -508,5 +508,5 @@ const Vote = ({
   );
 };
 
-// export default withAuth(Vote, ["/vote"]);
-export default Vote;
+export default withAuth(Vote, ["/vote"]);
+// export default Vote;
