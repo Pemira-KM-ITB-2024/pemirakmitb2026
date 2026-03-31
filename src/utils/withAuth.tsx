@@ -3,7 +3,8 @@ import { Bounce, toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-const VOTE_DEADLINE = "2025-03-09T23:59:59.999+07:00"; 
+// TODO: Move this to a config file or environment variable
+const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00"; 
 
 export function withAuth<P extends object>(
   WrappedComponent: React.ComponentType<P>,
