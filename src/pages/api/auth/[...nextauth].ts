@@ -50,7 +50,7 @@ export default NextAuth({
           isProduction
             ? "pemirakmitb.com"
             : isStaging
-            ? "vercel.app"
+            ? undefined // Vercel preview uses host-specific cookies
             : "localhost",
 
         sameSite: "lax",
@@ -68,7 +68,7 @@ export default NextAuth({
           isProduction
             ? "pemirakmitb.com"
             : isStaging
-            ? "vercel.app"
+            ? undefined // Vercel preview uses host-specific cookies
             : "localhost",
         maxAge: 60 * 20,
       },

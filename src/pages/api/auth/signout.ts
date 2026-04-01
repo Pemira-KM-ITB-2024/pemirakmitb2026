@@ -10,7 +10,7 @@ const signOutHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const domain = isProduction
     ? "Domain=pemirakmitb.com;"
     : isStaging
-    ? "Domain=vercel.app;"
+    ? "" // Vercel preview uses host-specific cookies (no Domain attribute)
     : "Domain=localhost;";
 
   if (token) {
