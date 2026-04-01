@@ -5,8 +5,13 @@ const signOutHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({ req });
 
   const isProduction = process.env.NODE_ENV === "production";
-  const secure = isProduction ? "Secure;" : "";
-  const domain = isProduction ? "Domain=pemirakmitb.com;" : "Domain=localhost;";
+  const isStaging = process.env.VERCEL_ENV === "preview";
+  const secure = isProduction || isStaging ? "Secure;" : "";
+  const domain = isProduction
+    ? "Domain=pemirakmitb.com;"
+    : isStaging
+    ? "Domain=vercel.app;"
+    : "Domain=localhost;";
 
   if (token) {
     // Clear all possible session cookies with proper domain
