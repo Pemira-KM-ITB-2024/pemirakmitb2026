@@ -4,7 +4,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const signOutHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({ req });
 
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction = process.env.NODE_ENV_CUSTOM === "production";
   const isStaging = process.env.VERCEL_ENV === "preview";
   const secure = isProduction || isStaging ? "Secure;" : "";
   const domain = isProduction

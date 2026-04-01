@@ -5,7 +5,7 @@ import { programStudi } from "~/lib/constant/jurusan";
 
 const prisma = new PrismaClient();
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = process.env.NODE_ENV_CUSTOM === "production";
 const isStaging = process.env.VERCEL_ENV === "preview";
 
 const baseUrl = isProduction
@@ -40,7 +40,7 @@ export default NextAuth({
   cookies: {
     sessionToken: {
       name:
-        process.env.NODE_ENV === "production"
+        process.env.NODE_ENV_CUSTOM === "production"
           ? "__Secure-next-auth.session-token"
           : "next-auth.session-token",
       options: {
@@ -61,7 +61,7 @@ export default NextAuth({
       name: "next-auth.state",
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: process.env.NODE_ENV_CUSTOM === "production",
         sameSite: "lax",
         path: "/",
         domain:

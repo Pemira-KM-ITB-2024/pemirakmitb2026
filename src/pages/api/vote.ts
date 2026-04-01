@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(403).json({ error: "Voting period has ended" });
   }
 
-  if (process.env.NODE_ENV === "production" && req.headers.origin !== "https://pemirakmitb.com") {
+  if (process.env.NODE_ENV_CUSTOM === "production" && req.headers.origin !== "https://pemirakmitb.com") {
     return res.status(403).end();
   }
 
