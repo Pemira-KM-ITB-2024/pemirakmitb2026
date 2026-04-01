@@ -40,7 +40,7 @@ export default NextAuth({
   cookies: {
     sessionToken: {
       name:
-        process.env.NODE_ENV_CUSTOM === "production"
+        isProduction || isStaging
           ? "__Secure-next-auth.session-token"
           : "next-auth.session-token",
       options: {
@@ -61,7 +61,7 @@ export default NextAuth({
       name: "next-auth.state",
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV_CUSTOM === "production",
+        secure: isProduction || isStaging,
         sameSite: "lax",
         path: "/",
         domain:
