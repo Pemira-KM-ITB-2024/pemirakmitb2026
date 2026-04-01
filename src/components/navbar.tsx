@@ -5,11 +5,11 @@ import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { body } from "@fonts";
 import { on } from "events";
-import { signIn } from "next-auth/react";
-import AzureAD from "next-auth/providers/azure-ad";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
   const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -17,6 +17,7 @@ const Navbar = () => {
   const mainLinks = [
     { href: "/", label: "Home" },
     { href: "/profil-calon", label: "Profil Kandidat" },
+    ...session ? [{ href: "/vote", label: "Vote" }] : [],
   ];
 
   const menuLinks = [
@@ -24,7 +25,8 @@ const Navbar = () => {
     { href: "", label: "Live Report", onClick: null},
     { href: "", label: "Pelaporan", onClick: null},
     { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP", onClick: null},
-    { href: "", label: "Sign in", onClick: () => signIn("azure-ad") },
+    ...(session ? [{ href: "", label: "Sign out", onClick: () => signOut({ callbackUrl: "/" })}] : 
+    [{ href: "", label: "Sign in", onClick: () => signIn("azure-ad") }])
   ];
 
   const activeIndex = Math.max(
