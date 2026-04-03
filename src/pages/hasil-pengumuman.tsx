@@ -85,14 +85,14 @@ function HasilPengumuman() {
     const leftCandidates: CandidateData[] = resultData.k3m.rounds[0]?.counts
       ? Object.keys(resultData.k3m.rounds[0].counts).map((key) => {
           const noUrut = parseInt(key);
-          const peakPercent = resultData!.k3m.peakPercentages[noUrut] ?? 0;
+          const peakPercent = resultData.k3m.peakPercentages[noUrut] ?? 0;
           return {
             title: "K3M",
             nama: K3M_CANDIDATE_NAMES[noUrut - 1] ?? `Calon ${noUrut}`,
             noUrut,
             nimJurusan: `Kandidat ${noUrut}`,
             persen: peakPercent,
-            totalSuara: resultData!.k3m.totalVotes,
+            totalSuara: resultData.k3m.totalVotes,
           };
         }).sort((a, b) => a.noUrut - b.noUrut)
       : [];
@@ -100,14 +100,14 @@ function HasilPengumuman() {
     const rightCandidates: CandidateData[] = resultData.mwawm.rounds[0]?.counts
       ? Object.keys(resultData.mwawm.rounds[0].counts).map((key) => {
           const noUrut = parseInt(key);
-          const peakPercent = resultData!.mwawm.peakPercentages[noUrut] ?? 0;
+          const peakPercent = resultData.mwawm.peakPercentages[noUrut] ?? 0;
           return {
             title: "MWA WM",
             nama: MWAWM_CANDIDATE_NAMES[noUrut - 1] ?? `Calon ${noUrut}`,
             noUrut,
             nimJurusan: `Kandidat ${noUrut}`,
             persen: peakPercent,
-            totalSuara: resultData!.mwawm.totalVotes,
+            totalSuara: resultData.mwawm.totalVotes,
           };
         }).sort((a, b) => a.noUrut - b.noUrut)
       : [];
