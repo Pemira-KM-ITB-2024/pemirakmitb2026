@@ -32,9 +32,9 @@ const VotingCard: React.FC<VotingCardProps> = ({
 
       {/* Foto Profil / Placeholder Pink */}
       <div className="relative w-20 sm:w-28 md:w-40 h-20 sm:h-28 md:h-40 bg-[#D6546A] rounded-full mb-3 sm:mb-4 md:mb-6 shadow-lg flex items-center justify-center border-4 border-white">
-          {/* Badge Nomor Urut 01 */}
+          {/* Badge Nomor Urut */}
           <div className="absolute bottom-0 right-0 bg-[#12499D] text-white text-[10px] sm:text-xs w-5 sm:w-6 md:w-6 h-5 sm:h-6 md:h-6 rounded-full flex items-center justify-center border-2 border-white font-bold">
-              01
+              {String(data.noUrut).padStart(2, '0')}
           </div>
       </div>
 

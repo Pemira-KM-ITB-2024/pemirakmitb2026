@@ -1,75 +1,119 @@
-import React, { useState, ReactElement } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import VotingCard from "../components/ui/votingCard";
 import EnvelopeAnimation from "../components/ui/EnvelopeAnimation";
+import { Bounce, toast } from "react-toastify";
 // import Navbar from "../components/navbar";
 // import Bg from "../components/background";
 
-const dataVoting = {
-  leftCandidates: [{
-      title: "K3M",
-      nama: "Lorem Ipsum",
-      noUrut: 1,
-      nimJurusan: "12324001 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    },
-    {
-      title: "K3M",
-      nama: "Lorem Ipsum",
-      noUrut: 2,
-      nimJurusan: "12324002 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    },
-    {
-      title: "K3M",
-      nama: "Lorem Ipsum",
-      noUrut: 3,
-      nimJurusan: "12324003 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    },
-    {
-      title: "K3M",
-      nama: "Kotak Kosong",
-      noUrut: 4,
-      nimJurusan: "12324004 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    }
-  ],
-  rightCandidates: [{
-      title: "MWA WM",
-      nama: "Lorem Ipsum",
-      noUrut: 1,
-      nimJurusan: "12324001 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    },
-    {
-      title: "MWA WM",
-      nama: "Lorem Ipsum",
-      noUrut: 2,
-      nimJurusan: "12324002 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    },
-    {
-      title: "MWA WM",
-      nama: "Kotak Kosong",
-      noUrut: 3,
-      nimJurusan: "12324002 • kedokteran",
-      persen: 90,
-      totalSuara: 192830,
-    }
-  ]
-};
+interface CandidateData {
+  title: string;
+  nama: string;
+  noUrut: number;
+  nimJurusan: string;
+  persen: number;
+  totalSuara: number;
+}
+
+interface IRVResult {
+  winner: number | null;
+  totalVotes: number;
+  peakPercentages: Record<number, number>;
+  rounds: {
+    round: number;
+    counts: Record<number, number>;
+    percentages: Record<number, number>;
+    eliminated?: number;
+  }[];
+}
+
+interface ApiResult {
+  k3m: IRVResult;
+  mwawm: IRVResult;
+}
+
+// Placeholder candidate names - replace with actual names from your data source
+const K3M_CANDIDATE_NAMES = ["Calon 1", "Calon 2", "Calon 3", "Kotak Kosong"];
+const MWAWM_CANDIDATE_NAMES = ["Calon 1", "Calon 2", "Kotak Kosong"];
 
 function HasilPengumuman() {
   const [stage, setStage] = useState<1 | 2>(1);
   const [isPermanentlyOpen, setIsPermanentlyOpen] = useState(false);
   const [showCard, setShowCard] = useState(false);
+  const [resultData, setResultData] = useState<ApiResult | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch results from API
+  const fetchResults = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/result");
+      if (response.ok) {
+        const data: ApiResult = await response.json();
+        setResultData(data);
+      } else {
+        toast.error("Gagal mengambil hasil voting", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "fetch-error",
+          pauseOnHover: false,
+          closeOnClick: true,
+          transition: Bounce,
+          theme: "colored",
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching results:", error);
+      toast.error("Terjadi kesalahan saat mengambil hasil", {
+        position: "top-center",
+        autoClose: 3000,
+        toastId: "fetch-error",
+        pauseOnHover: false,
+        closeOnClick: true,
+        transition: Bounce,
+        theme: "colored",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Transform API result to VotingCard format
+  const transformToVotingData = (): { leftCandidates: CandidateData[]; rightCandidates: CandidateData[] } | null => {
+    if (!resultData) return null;
+
+    const leftCandidates: CandidateData[] = resultData.k3m.rounds[0]?.counts
+      ? Object.keys(resultData.k3m.rounds[0].counts).map((key) => {
+          const noUrut = parseInt(key);
+          const peakPercent = resultData!.k3m.peakPercentages[noUrut] ?? 0;
+          return {
+            title: "K3M",
+            nama: K3M_CANDIDATE_NAMES[noUrut - 1] ?? `Calon ${noUrut}`,
+            noUrut,
+            nimJurusan: `Kandidat ${noUrut}`,
+            persen: peakPercent,
+            totalSuara: resultData!.k3m.totalVotes,
+          };
+        }).sort((a, b) => a.noUrut - b.noUrut)
+      : [];
+
+    const rightCandidates: CandidateData[] = resultData.mwawm.rounds[0]?.counts
+      ? Object.keys(resultData.mwawm.rounds[0].counts).map((key) => {
+          const noUrut = parseInt(key);
+          const peakPercent = resultData!.mwawm.peakPercentages[noUrut] ?? 0;
+          return {
+            title: "MWA WM",
+            nama: MWAWM_CANDIDATE_NAMES[noUrut - 1] ?? `Calon ${noUrut}`,
+            noUrut,
+            nimJurusan: `Kandidat ${noUrut}`,
+            persen: peakPercent,
+            totalSuara: resultData!.mwawm.totalVotes,
+          };
+        }).sort((a, b) => a.noUrut - b.noUrut)
+      : [];
+
+    return { leftCandidates, rightCandidates };
+  };
 
   // Handler saat Mouse masuk area amplop
   const handleMouseEnter = () => {
@@ -91,12 +135,19 @@ function HasilPengumuman() {
 
     setIsPermanentlyOpen(true);
     setStage(2);
-    
+
     // Delay sedikit agar transisi amplop terbuka terlihat dulu
     setTimeout(() => {
       setShowCard(true);
     }, 200);
   };
+
+  // Fetch results when card is shown
+  useEffect(() => {
+    if (showCard && !resultData) {
+      void fetchResults();
+    }
+  }, [showCard, resultData]);
 
   return (
     <div className="relative min-h-screen w-full flex flex-col items-center py-10 px-4 overflow-x-hidden">
@@ -184,7 +235,13 @@ function HasilPengumuman() {
                   }
                 `}
               >
-                <VotingCard {...dataVoting} />
+                {isLoading ? (
+                  <div className="flex items-center justify-center h-full">
+                    <div className="text-[#12499D] text-xl md:text-2xl font-bold">Memuat hasil...</div>
+                  </div>
+                ) : (
+                  <VotingCard {...(transformToVotingData() ?? { leftCandidates: [], rightCandidates: [] })} />
+                )}
               </div>
             </div>
           </div>
