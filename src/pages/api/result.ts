@@ -28,10 +28,10 @@ const runIRV = (votes: Vote[], numCandidates: number): IRVResult => {
 
     // Initialize: build vote tracker - each vote's current effective rank
     // voteTracker[i] = the candidate number that vote i currently points to
-    let voteTracker: number[] = votes.map(v => v.rank1);
+    const voteTracker: number[] = votes.map(v => v.rank1);
 
     // Active candidates (not yet eliminated)
-    let activeCandidates = new Set(Array.from({ length: numCandidates }, (_, i) => i + 1));
+    const activeCandidates = new Set(Array.from({ length: numCandidates }, (_, i) => i + 1));
 
     let round = 1;
     let winner: number | null = null;
