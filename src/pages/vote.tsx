@@ -21,7 +21,7 @@ const MWAWM_CANDIDATES = [
   { id: 3, name: "Calon 3", faculty: "XX'YY", imgUrl: "/mwam3.jpg", bgColor: "#0A8E8B" },
 ];
 
-const VOTE_DEADLINE = "2025-03-09T23:59:59.999+07:00";
+const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00";
 
 const Vote = ({
   secureApiCall,
@@ -102,8 +102,7 @@ const Vote = ({
         }
       }
     };
-    // TODO: temporary
-    // void checkUserExists();
+    void checkUserExists();
   }, [data?.user?.email, router]);
 
   const handleRankClick = useCallback(
