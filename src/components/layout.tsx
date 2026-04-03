@@ -36,7 +36,7 @@ const Layout = ({ children }: { children?: ReactNode }) => {
             name="description"
             content="Website Pemilu Raya KM ITB 2024/2025"
           />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/logo26.ico" />
         </Head>
         <Toaster richColors />
         <main
