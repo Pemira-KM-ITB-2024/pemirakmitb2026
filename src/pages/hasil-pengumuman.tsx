@@ -1,25 +1,69 @@
 import React, { useState, ReactElement } from "react";
+import Image from "next/image";
 import VotingCard from "../components/ui/votingCard";
 import EnvelopeAnimation from "../components/ui/EnvelopeAnimation";
-import { unbounded } from "../styles/fonts";
 // import Navbar from "../components/navbar";
 // import Bg from "../components/background";
 
 const dataVoting = {
-  leftCandidate: {
-    title: "K3M",
-    nama: "Lorem Ipsum",
-    nimJurusan: "12324001 • kedokteran",
-    persen: 90,
-    totalSuara: 192830,
-  },
-  rightCandidate: {
-    title: "MWA WM",
-    nama: "Lorem Ipsum",
-    nimJurusan: "12324001 • kedokteran",
-    persen: 90,
-    totalSuara: 192830,
-  }
+  leftCandidates: [{
+      title: "K3M",
+      nama: "Lorem Ipsum",
+      noUrut: 1,
+      nimJurusan: "12324001 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    },
+    {
+      title: "K3M",
+      nama: "Lorem Ipsum",
+      noUrut: 2,
+      nimJurusan: "12324002 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    },
+    {
+      title: "K3M",
+      nama: "Lorem Ipsum",
+      noUrut: 3,
+      nimJurusan: "12324003 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    },
+    {
+      title: "K3M",
+      nama: "Kotak Kosong",
+      noUrut: 4,
+      nimJurusan: "12324004 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    }
+  ],
+  rightCandidates: [{
+      title: "MWA WM",
+      nama: "Lorem Ipsum",
+      noUrut: 1,
+      nimJurusan: "12324001 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    },
+    {
+      title: "MWA WM",
+      nama: "Lorem Ipsum",
+      noUrut: 2,
+      nimJurusan: "12324002 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    },
+    {
+      title: "MWA WM",
+      nama: "Kotak Kosong",
+      noUrut: 3,
+      nimJurusan: "12324002 • kedokteran",
+      persen: 90,
+      totalSuara: 192830,
+    }
+  ]
 };
 
 function HasilPengumuman() {
@@ -61,54 +105,82 @@ function HasilPengumuman() {
       <div className="w-full max-w-5xl mx-auto flex flex-col items-center z-10 relative">
         <div className="w-full flex justify-center mb-4 px-4">
           {/* VERSI MOBILE: Muncul di layar kecil (hidden di md ke atas) */}
-          <img
+          <Image
             src="/lihathasilvoting-mobile.png"
             alt="Header Mobile"
+            width={300}
+            height={75}
             className="block md:hidden w-full max-w-[300px] h-auto"
-            draggable={false}
+            priority
           />
           {/* VERSI DESKTOP: Muncul di layar md (768px) ke atas */}
-          <img
+          <Image
             src="/lihathasilvoting.png"
             alt="Header Desktop"
+            width={768}
+            height={192}
             className="hidden md:block w-full max-w-4xl h-auto"
-            draggable={false}
+            priority
           />
         </div>
 
-        <p className={`${unbounded.className} text-[#E94F37] text-lg md:text-xl mb-6 text-center font-bold uppercase px-4`}>
+        <p className={`text-[#E94F37] text-lg md:text-xl mb-6 text-center font-bold uppercase px-4`}>
           {showCard ? "Hasil Voting Berhasil Dibuka!" : "Click Amplop di bawah ini"}
         </p>
 
-        {/* WRAPPER SCALE: Ini kuncinya untuk Mobile */}
+        {/* WRAPPER - Mobile: show full width card, Desktop: centered with scaling */}
         <div className="relative flex justify-center items-center w-full min-h-[500px] md:min-h-[650px]">
           <div
-            className="origin-center scale-[0.35] sm:scale-[0.5] md:scale-[0.8] lg:scale-100 transition-transform duration-500"
+            className="origin-center w-full transition-transform duration-500"
+            style={{
+              transform: 'scale(1)',
+            }}
           >
-            {/* AREA UTAMA (UKURAN TETAP FIX) */}
-            <div className="relative" style={{ width: '1134px', height: '600px' }}>
+            {/* AREA UTAMA */}
+            <div className="relative w-full">
               {/* Layer Biru */}
               <div
-                className="absolute z-0 bg-[#12499D]"
-                style={{ width: '1134px', height: '400px', top: '0px' }}
+                className="absolute z-0 bg-[#12499D] w-full hidden md:block"
+                style={{ height: '400px', top: '0px' }}
               />
 
-              {/* 1. Amplop */}
-              <div className="relative z-30 flex justify-center">
+              {/* Mobile: smaller blue layer */}
+              <div
+                className="absolute z-0 bg-[#12499D] w-full md:hidden"
+                style={{ height: '120px', top: '0px' }}
+              />
+
+              {/* 1. Amplop - Desktop */}
+              <div className="relative z-30 hidden md:flex justify-center">
                 <EnvelopeAnimation
                   stage={stage}
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
                   onClick={handleEnvelopeClick}
-                  className="w-[1134px] h-[442px]"
+                  className="w-full max-w-[1134px] h-[884px]"
                 />
               </div>
 
-              {/* 2. VotingCard */}
+              {/* Mobile: smaller envelope click area */}
               <div
-                className={`absolute inset-0 flex justify-center items-center 
-                  ${showCard ? 'transition-all duration-700 ease-out z-50 scale-100 opacity-100 translate-y-[-50px] pointer-events-auto'
-                            : 'z-10 scale-95 opacity-80 translate-y-[-70px] pointer-events-none'
+                className="relative z-30 flex md:hidden justify-center cursor-pointer"
+                onClick={handleEnvelopeClick}
+              >
+                <EnvelopeAnimation
+                  stage={stage}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  onClick={handleEnvelopeClick}
+                  className="w-full max-w-[500px] h-[180px]"
+                />
+              </div>
+
+              {/* 2. VotingCard - Appears on top of envelope when opened */}
+              <div
+                className={`absolute inset-0
+                  ${showCard
+                    ? 'transition-all duration-700 ease-out z-50 opacity-100 pointer-events-auto mt-28'
+                    : 'z-10 opacity-0 pointer-events-none'
                   }
                 `}
               >
