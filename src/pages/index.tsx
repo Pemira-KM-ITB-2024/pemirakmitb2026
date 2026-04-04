@@ -5,13 +5,18 @@ import { useRef, useState, useEffect } from "react";
 import { sexsmith, unbounded } from "@fonts";
 
 const linimasaData = [
-  { title: "Lorem ipsum", date: "2 Des 2028" },
-  { title: "Lorem ipsum", date: "3 Des 2028" },
-  { title: "Lorem ipsum", date: "4 Des 2028" },
-  { title: "Lorem ipsum", date: "5 Des 2028" },
-  { title: "Lorem ipsum", date: "6 Des 2028" },
-  { title: "Lorem ipsum", date: "7 Des 2028" },
-  { title: "Lorem ipsum", date: "8 Des 2028" },
+  { title: "SIK 1", date: "2 Maret" },
+  { title: "Referendum", date: "3-5 Maret" },
+  { title: "SIK 2", date: "9 Maret" },
+  { title: "Pengambilan Berkas", date: "10-11 Maret" },
+  { title: "Pengembalian Berkas", date: "13 Maret" },
+  { title: "Verifikasi & Perbaikan", date: "14-17 Maret" },
+  { title: "Uji Dengar K3M Jatinangor & MWA WM Ganesha", date: "30 Maret" },
+  { title: "Uji Dengar K3M Cirebon & MWA WM Jatinangor", date: "31 Maret" },
+  { title: "Uji Dengar K3M Ganesha & MWA WM Cirebon", date: "1 April" },
+  { title: "Uji Panelis MWA WM", date: "4 April" },
+  { title: "Voting", date: "6-10 April" },
+  { title: "Pengumuman", date: "10 April" },
 ]
 
 export default function Home() {
