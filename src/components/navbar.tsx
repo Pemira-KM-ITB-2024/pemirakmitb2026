@@ -21,10 +21,10 @@ const Navbar = () => {
   ];
 
   const menuLinks = [
+    //TODO: LINK HEARING
     { href: "", label: "Hearing", onClick: null},
-    { href: "", label: "Live Report", onClick: null},
-    { href: "", label: "Pelaporan", onClick: null},
-    { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP", onClick: null},
+    { href: "https://bit.ly/LaporanPelangaran", label: "Pelaporan", onClick: null},
+    { href: "https://drive.google.com/file/d/18miGM3H1IEuj_zuqxE1kKvxsJmnTGZWe/view?usp=sharing", label: "Dokumen TAP", onClick: null},
     ...(session ? [{ href: "", label: "Sign out", onClick: () => signOut({ callbackUrl: "/" })}] : 
     [{ href: "", label: "Sign in", onClick: () => signIn("azure-ad") }])
   ];
