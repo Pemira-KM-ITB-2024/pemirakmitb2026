@@ -12,15 +12,17 @@ type Props = {
   faculty?: string;
   clicked: boolean;
   rank?: number | null; // rank number to display (1, 2, 3...) for IRV
+  disabled?: boolean;
+  isKotakKosong?: boolean;
 };
 
 const VoteCard = (props: Props) => {
   return (
     <div
-      onClick={props.onClick}
+      onClick={props.disabled ? undefined : props.onClick}
       className={`relative ${
         props.clicked ? "scale-105 border-[#3A71F0]" : "border-transparent"
-      } flex w-full max-w-[500px] cursor-pointer flex-col items-center justify-between rounded-lg border-[3px] md:border-[5px] p-2 sm:p-3 md:p-4 duration-200 hover:scale-105 hover:border-[#3A71F0]`}
+      } ${props.disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} flex w-full max-w-[500px] flex-col items-center justify-between rounded-lg border-[3px] md:border-[5px] p-2 sm:p-3 md:p-4 duration-200 ${!props.disabled ? "hover:scale-105 hover:border-[#3A71F0]" : ""}`}
       style={{ backgroundColor: props.bgColor }}
     >
       <div className="relative aspect-square w-full overflow-hidden rounded-lg">
