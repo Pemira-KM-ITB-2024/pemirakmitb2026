@@ -4,8 +4,9 @@ import { getToken } from "next-auth/jwt";
 
 const prisma = new PrismaClient();
 
-const K3M_CANDIDATES = 4;
-const MWAWM_CANDIDATES = 3;
+const K3M_CANDIDATES = 3;
+const MWAWM_CANDIDATES = 2;
+const KOTAK_KOSONG_ID = 0;
 
 interface VoteData {
   email: string;
@@ -14,6 +15,11 @@ interface VoteData {
 }
 
 const isValidRanking = (rankings: number[], num: number): boolean => {
+  // Kotak Kosong: must be the only selection
+  if (rankings.includes(KOTAK_KOSONG_ID)) {
+    return rankings.length === 1 && rankings[0] === KOTAK_KOSONG_ID;
+  }
+  // Normal ranking: must have exactly num candidates with no duplicates and valid IDs
   if (rankings.length !== num) return false;
   const seen = new Set<number>();
   for (const r of rankings) {
@@ -78,23 +84,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         data: { hasVoted: true },
       });
 
+      // Helper to create vote data - Kotak Kosong (0) means all ranks are 0
+      const createK3MVote = (rankings: number[] | undefined) => {
+        if (!rankings) return undefined; // User not eligible for K3M
+        if (rankings.includes(KOTAK_KOSONG_ID)) {
+          // Kotak Kosong - all ranks are 0
+          return tx.voteK3M.create({
+            data: { rank1: 0, rank2: 0, rank3: 0 },
+          });
+        }
+        return tx.voteK3M.create({
+          data: {
+            rank1: rankings[0]!,
+            rank2: rankings[1]!,
+            rank3: rankings[2]!,
+          },
+        });
+      };
+
+      const createMWAWMVote = (rankings: number[]) => {
+        if (rankings.includes(KOTAK_KOSONG_ID)) {
+          // Kotak Kosong - all ranks are 0
+          return tx.voteMWAWM.create({
+            data: { rank1: 0, rank2: 0 },
+          });
+        }
+        return tx.voteMWAWM.create({
+          data: {
+            rank1: rankings[0]!,
+            rank2: rankings[1]!,
+          },
+        });
+      };
+
       const votes = [
-        rankingsK3M && tx.voteK3M.create({
-          data: {
-            rank1: rankingsK3M[0]!,
-            rank2: rankingsK3M[1]!,
-            rank3: rankingsK3M[2]!,
-            rank4: rankingsK3M[3]!,
-          },
-        }),
-        tx.voteMWAWM.create({
-          data: {
-            rank1: rankingsMWAWM[0]!,
-            rank2: rankingsMWAWM[1]!,
-            rank3: rankingsMWAWM[2]!,
-          },
-        }),
-      ].filter(Boolean);
+        createK3MVote(rankingsK3M),
+        createMWAWMVote(rankingsMWAWM),
+      ];
 
       await Promise.all(votes);
     });

@@ -12,14 +12,16 @@ const K3M_CANDIDATES = [
   { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/k3m1.jpg", bgColor: "#EF476F" },
   { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/k3m2.jpg", bgColor: "#F2B61E" },
   { id: 3, name: "Calon 3", faculty: "XX'YY", imgUrl: "/k3m3.jpg", bgColor: "#0A8E8B" },
-  { id: 4, name: "Calon 4", faculty: "XX'YY", imgUrl: "/k3m4.jpg", bgColor: "#12499D" },
 ];
 
 const MWAWM_CANDIDATES = [
   { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/mwam1.jpg", bgColor: "#EF476F" },
   { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/mwam2.jpg", bgColor: "#F2B61E" },
-  { id: 3, name: "Calon 3", faculty: "XX'YY", imgUrl: "/mwam3.jpg", bgColor: "#0A8E8B" },
 ];
+
+// Kotak Kosong is represented by id 0
+const KOTAK_KOSONG_ID = 0;
+const KOTAK_KOSONG = { id: KOTAK_KOSONG_ID, name: "Kotak Kosong", faculty: "", imgUrl: "/kotak-kosong.jpg", bgColor: "#888888" };
 
 const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00";
 
@@ -111,6 +113,32 @@ const Vote = ({
       rankings: number[],
       setRankings: React.Dispatch<React.SetStateAction<number[]>>,
     ) => {
+      // If Kotak Kosong is clicked
+      if (candidateId === KOTAK_KOSONG_ID) {
+        // If already selected, deselect it
+        if (rankings.includes(KOTAK_KOSONG_ID)) {
+          setRankings([]);
+        } else {
+          // Select only Kotak Kosong (clears all other selections)
+          setRankings([KOTAK_KOSONG_ID]);
+        }
+        return;
+      }
+
+      // If rankings only has Kotak Kosong, don't allow adding candidates
+      if (rankings.includes(KOTAK_KOSONG_ID)) {
+        toast.error("Tidak dapat memilih kandidat setelah memilih Kotak Kosong", {
+          position: "top-center",
+          autoClose: 3000,
+          toastId: "kotak-kosong-error",
+          pauseOnHover: false,
+          closeOnClick: true,
+          transition: Bounce,
+          theme: "colored",
+        });
+        return;
+      }
+
       const existingIndex = rankings.indexOf(candidateId);
       if (existingIndex !== -1) {
         // Remove this candidate and all after it (re-rank from this point)
@@ -126,8 +154,9 @@ const Vote = ({
   //TODO: Temporary
   // const canVoteK3M = nimStartsWith === "1" && userJurusan !== "Pascasarjana";
   const canVoteK3M = true;
-  const isK3MComplete = rankingsK3M.length === K3M_CANDIDATES.length;
-  const isMWAWMComplete = rankingsMWAWM.length === MWAWM_CANDIDATES.length;
+  // Complete if all candidates ranked OR Kotak Kosong selected
+  const isK3MComplete = rankingsK3M.includes(KOTAK_KOSONG_ID) || rankingsK3M.length === K3M_CANDIDATES.length;
+  const isMWAWMComplete = rankingsMWAWM.includes(KOTAK_KOSONG_ID) || rankingsMWAWM.length === MWAWM_CANDIDATES.length;
   const isVoteComplete =
     (canVoteK3M ? isK3MComplete : true) && isMWAWMComplete;
 
@@ -311,7 +340,8 @@ const Vote = ({
             >
               Klik calon sesuai urutan preferensi Anda. Klik pertama = pilihan
               utama (1), klik kedua = pilihan kedua (2), dst. Klik calon yang
-              sudah dipilih untuk membatalkan urutan dari titik tersebut.
+              sudah dipilih untuk membatalkan urutan dari titik tersebut. Jika
+              memilih Kotak Kosong, Anda tidak dapat memilih kandidat lainnya.
             </p>
           </div>
 
@@ -336,13 +366,15 @@ const Vote = ({
                   className="text-xs sm:text-sm font-medium text-[#0A8E8B] md:text-base"
                   style={{ fontFamily: "var(--font-unbounded), sans-serif" }}
                 >
-                  Urutkan {K3M_CANDIDATES.length} calon ({rankingsK3M.length}/
-                  {K3M_CANDIDATES.length} dipilih)
+                  {rankingsK3M.includes(KOTAK_KOSONG_ID)
+                    ? "Kotak Kosong dipilih"
+                    : `Urutkan ${K3M_CANDIDATES.length} calon (${rankingsK3M.length}/${K3M_CANDIDATES.length} dipilih)`}
                 </p>
                 <div className="grid w-full max-w-[600px] grid-cols-2 gap-3 px-2 sm:gap-5 sm:max-w-[900px] md:max-w-[1200px] md:gap-8 lg:grid-cols-4 lg:gap-6">
                   {K3M_CANDIDATES.map((candidate) => {
                     const rankIndex = rankingsK3M.indexOf(candidate.id);
                     const isSelected = rankIndex !== -1;
+                    const isDisabled = rankingsK3M.includes(KOTAK_KOSONG_ID);
                     return (
                       <VoteCard
                         key={candidate.id}
@@ -360,9 +392,28 @@ const Vote = ({
                         rank={isSelected ? rankIndex + 1 : null}
                         name={candidate.name}
                         faculty={candidate.faculty}
+                        disabled={isDisabled}
                       />
                     );
                   })}
+                  {/* Kotak Kosong */}
+                  <VoteCard
+                    bgColor={KOTAK_KOSONG.bgColor}
+                    textColor="#FFF6E0"
+                    imgUrl={KOTAK_KOSONG.imgUrl}
+                    onClick={() =>
+                      handleRankClick(
+                        KOTAK_KOSONG_ID,
+                        rankingsK3M,
+                        setRankingsK3M,
+                      )
+                    }
+                    clicked={rankingsK3M.includes(KOTAK_KOSONG_ID)}
+                    rank={rankingsK3M.includes(KOTAK_KOSONG_ID) ? 1 : null}
+                    name="Kotak Kosong"
+                    faculty=""
+                    isKotakKosong
+                  />
                 </div>
               </section>
             )}
@@ -393,13 +444,15 @@ const Vote = ({
                 className="text-xs sm:text-sm font-medium text-[#0A8E8B] md:text-base"
                 style={{ fontFamily: "var(--font-unbounded), sans-serif" }}
               >
-                Urutkan {MWAWM_CANDIDATES.length} calon ({rankingsMWAWM.length}/
-                {MWAWM_CANDIDATES.length} dipilih)
+                {rankingsMWAWM.includes(KOTAK_KOSONG_ID)
+                  ? "Kotak Kosong dipilih"
+                  : `Urutkan ${MWAWM_CANDIDATES.length} calon (${rankingsMWAWM.length}/${MWAWM_CANDIDATES.length} dipilih)`}
               </p>
               <div className="grid w-full max-w-[400px] grid-cols-1 gap-3 px-2 sm:max-w-[700px] sm:grid-cols-2 sm:gap-5 md:max-w-[900px] md:grid-cols-3 md:gap-8">
                 {MWAWM_CANDIDATES.map((candidate) => {
                   const rankIndex = rankingsMWAWM.indexOf(candidate.id);
                   const isSelected = rankIndex !== -1;
+                  const isDisabled = rankingsMWAWM.includes(KOTAK_KOSONG_ID);
                   return (
                     <VoteCard
                       key={candidate.id}
@@ -417,9 +470,28 @@ const Vote = ({
                       rank={isSelected ? rankIndex + 1 : null}
                       name={candidate.name}
                       faculty={candidate.faculty}
+                      disabled={isDisabled}
                     />
                   );
                 })}
+                {/* Kotak Kosong */}
+                <VoteCard
+                  bgColor={KOTAK_KOSONG.bgColor}
+                  textColor="#FFF6E0"
+                  imgUrl={KOTAK_KOSONG.imgUrl}
+                  onClick={() =>
+                    handleRankClick(
+                      KOTAK_KOSONG_ID,
+                      rankingsMWAWM,
+                      setRankingsMWAWM,
+                    )
+                  }
+                  clicked={rankingsMWAWM.includes(KOTAK_KOSONG_ID)}
+                  rank={rankingsMWAWM.includes(KOTAK_KOSONG_ID) ? 1 : null}
+                  name="Kotak Kosong"
+                  faculty=""
+                  isKotakKosong
+                />
               </div>
             </section>
 
