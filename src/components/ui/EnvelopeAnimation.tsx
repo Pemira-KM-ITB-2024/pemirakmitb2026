@@ -28,13 +28,14 @@ export default function EnvelopeAnimation({
         <>
           <img
             src="/envelope2.png"
-            className="absolute left-1/2 -translate-x-1/2 z-0 w-auto h-auto"
-            style={{ bottom: '100%', marginBottom: '-2px' }}
+            className="absolute left-1/2 -translate-x-1/2 z-0 w-auto h-auto bottom-100"
+            style={{ bottom: '100%', marginBottom: '-2px', transform: 'translate(-50%, 24px)' }}
             alt="Amplop belakang"
           />
           <img
             src="/envelope1.png"
             className="absolute inset-0 w-full h-full z-20"
+            style={{transform: 'translateY(24px)'}}
             alt="Amplop depan"
           />
         </>

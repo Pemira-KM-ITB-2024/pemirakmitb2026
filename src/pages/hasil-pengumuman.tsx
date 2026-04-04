@@ -185,13 +185,13 @@ function HasilPengumuman() {
             <div className="relative w-full">
               {/* Layer Biru */}
               <div
-                className="absolute z-0 bg-[#12499D] w-full hidden md:block"
+                className="mt-4 absolute z-0 bg-[#12499D] w-full hidden md:block"
                 style={{ height: '400px', top: '0px' }}
               />
 
               {/* Mobile: smaller blue layer */}
               <div
-                className="absolute z-0 bg-[#12499D] w-full md:hidden"
+                className="mt-6 absolute z-0 bg-[#12499D] w-full md:hidden"
                 style={{ height: '120px', top: '0px' }}
               />
 
@@ -224,17 +224,19 @@ function HasilPengumuman() {
               <div
                 className={`absolute inset-0
                   ${showCard
-                    ? 'transition-all duration-700 ease-out z-50 opacity-100 pointer-events-auto mt-28'
+                    ? 'z-50 opacity-100 pointer-events-auto '
                     : 'z-10 opacity-0 pointer-events-none'
                   }
                 `}
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center h-full">
-                    <div className="text-[#12499D] text-xl md:text-2xl font-bold">Memuat hasil...</div>
+                    <div className="text-white text-xl md:text-2xl font-bold">Memuat hasil...</div>
                   </div>
                 ) : (
-                  <VotingCard {...(transformToVotingData() ?? { leftElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [] }, rightElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [] } })} />
+                  <div className="transition-all duration-700 ease-out mt-28">
+                    <VotingCard {...(transformToVotingData() ?? { leftElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [] }, rightElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [] } })} />
+                  </div>
                 )}
               </div>
             </div>
