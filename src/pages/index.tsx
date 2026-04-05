@@ -283,8 +283,11 @@ export default function Home() {
         Pemilihan Umum Raya Keluarga Mahasiswa Institut Teknologi Bandung (Pemilu Raya KM ITB) Masa Referendum merupakan kelanjutan dari Pemilu Raya KM ITB 2025/2026, yakni wadah demokrasi dan regenerasi kepemimpinan kemahasiswaan ITB yang diselenggarakan berdasarkan Ketetapan Sidang Istimewa Kongres KM ITB Nomor 002 Tahun 2026 pada 9 Maret 2026. Pemilu Raya KM ITB Masa Referendum hadir dengan tetap mengemban tiga tujuan utama, yaitu menjadi wadah bagi mahasiswa ITB yang ingin menyalurkan ketertarikannya di bidang kepemimpinan, menjadi ruang pengembangan diri bagi mereka yang memiliki potensi memimpin, serta menjadi media regenerasi kepemimpinan kemahasiswaan ITB yang diharapkan dapat melahirkan pemimpin masa depan bangsa demi terwujudnya era kepemimpinan baru yang mampu menjadi motor penggerak seluruh aktivitas kemahasiswaan di Institut Teknologi Bandung.
       </div>
       {/* FORSOS */}
-      <div
-        className="mt-6 flex h-[50px] w-[260px] md:h-[78px] md:w-[380px] items-center justify-center rounded-[39px] bg-[#F2B61E] cursor-pointer transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:brightness-110"
+      <a
+        href="https://bit.ly/KampanyePemira26"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 flex h-[50px] w-[260px] md:h-[78px] md:w-[420px] items-center justify-center rounded-[39px] bg-[#F2B61E] cursor-pointer transition-all duration-300 hover:scale-[1.05] hover:shadow-lg hover:brightness-110"
       >
         <span
           className="text-3xl md:text-[55px]"
@@ -297,9 +300,9 @@ export default function Home() {
             textShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
           }}
         >
-          FORUM SOSIALISASI
+          PUBLIKASI KAMPANYE
         </span>
-      </div>
+      </a>
       {/* LINI MASA PEMILIHAN */}
       <div
         ref={timelineSectionRef}
