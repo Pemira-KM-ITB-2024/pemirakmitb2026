@@ -9,19 +9,19 @@ import { sexsmith, unbounded } from "~/styles/fonts";
 import Swal from "sweetalert2";
 
 const K3M_CANDIDATES = [
-  { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/k3m1.jpg", bgColor: "#EF476F" },
-  { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/k3m2.jpg", bgColor: "#F2B61E" },
-  { id: 3, name: "Calon 3", faculty: "XX'YY", imgUrl: "/k3m3.jpg", bgColor: "#0A8E8B" },
+  { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/calon-2026/1.png", bgColor: "#EF476F" },
+  { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/calon-2026/2.png", bgColor: "#F2B61E" },
+  { id: 3, name: "Calon 3", faculty: "XX'YY", imgUrl: "/calon-2026/3.png", bgColor: "#0A8E8B" },
 ];
 
 const MWAWM_CANDIDATES = [
-  { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/mwam1.jpg", bgColor: "#EF476F" },
-  { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/mwam2.jpg", bgColor: "#F2B61E" },
+  { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/calon-2026/4.png", bgColor: "#EF476F" },
+  { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/calon-2026/5.png", bgColor: "#F2B61E" },
 ];
 
 // Kotak Kosong is represented by id 0
 const KOTAK_KOSONG_ID = 0;
-const KOTAK_KOSONG = { id: KOTAK_KOSONG_ID, name: "Kotak Kosong", faculty: "", imgUrl: "/kotak-kosong.jpg", bgColor: "#888888" };
+const KOTAK_KOSONG = { id: KOTAK_KOSONG_ID, name: "Kotak Kosong", faculty: "", imgUrl: "/calon-2026/kosong.png", bgColor: "#888888" };
 
 const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00";
 
