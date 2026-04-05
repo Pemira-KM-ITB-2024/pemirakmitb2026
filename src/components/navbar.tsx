@@ -22,9 +22,9 @@ const Navbar = () => {
 
   const menuLinks = [
     //TODO: LINK HEARING
-    { href: "https://drive.google.com/drive/folders/1f-UT255UKcVzYfOcSx0rclvsg6sQ64o2?usp=drive_link", label: "Hearing", onClick: null},
+    { href: "bit.ly/KampanyePemira26", label: "Publikasi Kampanye", onClick: null},
     { href: "https://bit.ly/LaporanPelangaran", label: "Pelaporan", onClick: null},
-    { href: "https://drive.google.com/file/d/18miGM3H1IEuj_zuqxE1kKvxsJmnTGZWe/view?usp=sharing", label: "Dokumen TAP", onClick: null},
+    { href: "https://drive.google.com/file/d/1o6XjFdfk8ywviOsoYRJ_2ie3nDycGgyZ/view?usp=share_link", label: "Dokumen TAP", onClick: null},
     ...(session ? [{ href: "", label: "Sign out", onClick: () => signOut({ callbackUrl: "/" })}] : 
     [{ href: "", label: "Sign in", onClick: () => signIn("azure-ad") }])
   ];
