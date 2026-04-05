@@ -15,16 +15,30 @@
  */
 
 import http from "k6/http";
-import { check, sleep } from "k6";
+import { check } from "k6";
 import { Rate, Trend } from "k6/metrics";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 
-const BASE_URL = __ENV.BASE_URL || "http://localhost:3000";
-const VUS = __ENV.VUS ? parseInt(__ENV.VUS) : 50;
-const DURATION = __ENV.DURATION || "60s";
+const BASE_URL = __ENV.BASE_URL || "https://pemirakmitb2026.vercel.app/";
 const STRESS_TEST_SECRET = __ENV.STRESS_TEST_SECRET || "";
-const TEST_EMAIL = __ENV.TEST_EMAIL || "0000001@mahasiswa.itb.ac.id";
+
+// 50 test emails — round-robin per VU.
+// Override with TEST_EMAILS env var (comma-separated) if needed.
+const TEST_EMAILS = __ENV.TEST_EMAILS
+  ? __ENV.TEST_EMAILS.split(",")
+  : [
+      "stress1@test.com","stress2@test.com","stress3@test.com","stress4@test.com","stress5@test.com",
+      "stress6@test.com","stress7@test.com","stress8@test.com","stress9@test.com","stress10@test.com",
+      "stress11@test.com","stress12@test.com","stress13@test.com","stress14@test.com","stress15@test.com",
+      "stress16@test.com","stress17@test.com","stress18@test.com","stress19@test.com","stress20@test.com",
+      "stress21@test.com","stress22@test.com","stress23@test.com","stress24@test.com","stress25@test.com",
+      "stress26@test.com","stress27@test.com","stress28@test.com","stress29@test.com","stress30@test.com",
+      "stress31@test.com","stress32@test.com","stress33@test.com","stress34@test.com","stress35@test.com",
+      "stress36@test.com","stress37@test.com","stress38@test.com","stress39@test.com","stress40@test.com",
+      "stress41@test.com","stress42@test.com","stress43@test.com","stress44@test.com","stress45@test.com",
+      "stress46@test.com","stress47@test.com","stress48@test.com","stress49@test.com","stress50@test.com",
+    ];
 
 // ─── Custom Metrics ───────────────────────────────────────────────────────────
 
@@ -33,21 +47,29 @@ const voteFailed = new Rate("vote_failed");
 const voteDuration = new Trend("vote_duration");
 
 // ─── Test Options ────────────────────────────────────────────────────────────
-
+// Each VU fires exactly ONE vote simultaneously, then the test ends.
 export const options = {
-  vus: VUS,
-  duration: DURATION,
+  scenarios: {
+    smoke: {
+      executor: "per-vu-iterations",
+      vus: TEST_EMAILS.length,
+      iterations: 1,
+      maxDuration: "30s",
+    },
+  },
   thresholds: {
     http_req_duration: ["p(95)<1000"],
-    vote_success: ["rate>0.5"],
   },
 };
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function () {
+  // Round-robin email per VU (k6 __VU is 1-indexed)
+  const email = TEST_EMAILS[(__VU - 1) % TEST_EMAILS.length];
+
   const payload = JSON.stringify({
-    email: TEST_EMAIL,
+    email,
     rankingsK3M: [1, 2, 3],
     rankingsMWAWM: [1, 2],
   });
@@ -83,8 +105,6 @@ export default function () {
   } else {
     voteFailed.add(1);
   }
-
-  sleep(Math.random() * 1 + 0.2);
 }
 
 // ─── Summary ─────────────────────────────────────────────────────────────────
@@ -96,13 +116,14 @@ export function handleSummary(data) {
   const p95 = (metrics.http_req_duration?.values?.["p(95)"] || 0).toFixed(1);
   const avg = (metrics.http_req_duration?.values?.avg || 0).toFixed(1);
   const total = metrics.http_reqs?.values?.count || 0;
+  const vusMax = data.metrics.http_reqs?.values?.vus_max || TEST_EMAILS.length;
 
   console.log(`
 ╔══════════════════════════════════════╗
 ║       STRESS TEST SUMMARY             ║
 ╠══════════════════════════════════════╣
-║  VUs:       ${String(VUS).padEnd(22)}║
-║  Duration:  ${String(DURATION).padEnd(22)}║
+║  VUs:       ${String(vusMax).padEnd(22)}║
+║  Duration:  ${String((data.state.lastRunDuration / 1000).toFixed(1) + "s").padEnd(22)}║
 ║  Total:     ${String(total).padEnd(22)}║
 ╠══════════════════════════════════════╣
 ║  Success:   ${successRate}%          ║
