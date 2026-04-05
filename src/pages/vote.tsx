@@ -7,6 +7,7 @@ import Image from "next/image";
 import VoteCard from "~/components/voteCard";
 import { sexsmith, unbounded } from "~/styles/fonts";
 import Swal from "sweetalert2";
+import { VOTE_DEADLINE } from "./api/constants";
 
 const K3M_CANDIDATES = [
   { id: 1, name: "Samuel P. H. Panjaitan", faculty: "EL'22", imgUrl: "/calon-2026/1.png", bgColor: "#EF476F" },
@@ -22,8 +23,6 @@ const MWAWM_CANDIDATES = [
 // Kotak Kosong is represented by id 0
 const KOTAK_KOSONG_ID = 0;
 const KOTAK_KOSONG = { id: KOTAK_KOSONG_ID, name: "Kotak Kosong", faculty: "", imgUrl: "/calon-2026/kosong.png", bgColor: "#888888" };
-
-const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00";
 
 const Vote = ({
   secureApiCall,

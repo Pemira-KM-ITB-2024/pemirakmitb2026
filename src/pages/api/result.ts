@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
+import { RESULT_DATE } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -161,7 +162,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "POST") {
         return res.status(405).json({ error: "Method Not Allowed" });
     }
-
+    if (new Date() < new Date(RESULT_DATE)) {
+        return res.status(403).json({ error: "Results not available yet" });
+    }
+    
     try {
         // Get all K3M votes
         const k3mVotes = await prisma.voteK3M.findMany({

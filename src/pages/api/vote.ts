@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { PrismaClient } from "@prisma/client";
 import { getToken } from "next-auth/jwt";
+import { VOTE_DEADLINE, VOTE_START } from "./constants";
 
 const prisma = new PrismaClient();
 
@@ -28,9 +29,6 @@ const isValidRanking = (rankings: number[], num: number): boolean => {
   }
   return true;
 };
-
-const VOTE_DEADLINE = "2026-04-10T17:00:00.000+07:00";
-const VOTE_START = "2026-04-05T07:00:00.000+07:00";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {

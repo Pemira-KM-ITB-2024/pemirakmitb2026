@@ -4,6 +4,7 @@ import VotingCard from "../components/ui/votingCard";
 import type { ElectionResult } from "../components/ui/votingCard";
 import EnvelopeAnimation from "../components/ui/EnvelopeAnimation";
 import { Bounce, toast } from "react-toastify";
+import { RESULT_DATE } from "./api/constants";
 // import Navbar from "../components/navbar";
 // import Bg from "../components/background";
 
@@ -47,6 +48,8 @@ const MWAWM_CANDIDATE_PHOTOS = [
   "/calon-2026/4.png",
   "/calon-2026/5.png",
 ];
+
+const isResultReleased = () => new Date() >= new Date(RESULT_DATE);
 
 function HasilPengumuman() {
   const [stage, setStage] = useState<1 | 2>(1);
@@ -146,6 +149,19 @@ function HasilPengumuman() {
   // Handler saat diklik (Buka Permanen + Animasi Card)
   const handleEnvelopeClick = () => {
     if (isPermanentlyOpen) return;
+
+    if (!isResultReleased()) {
+      toast.error("Hasil voting belum dapat dibuka. Pengumuman pada 11 April 2026", {
+        position: "top-center",
+        autoClose: 3000,
+        toastId: "result-not-open-yet",
+        pauseOnHover: false,
+        closeOnClick: true,
+        transition: Bounce,
+        theme: "colored",
+      });
+      return;
+    }
 
     setIsPermanentlyOpen(true);
     setStage(2);
