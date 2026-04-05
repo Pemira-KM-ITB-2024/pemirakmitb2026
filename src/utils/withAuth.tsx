@@ -2,9 +2,7 @@ import { useEffect } from "react";
 import { Bounce, toast } from "react-toastify";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-
-// TODO: Move this to a config file or environment variable
-const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00"; 
+import { VOTE_DEADLINE } from "~/pages/api/constants";
 
 export function withAuth<P extends object>(
   WrappedComponent: React.ComponentType<P>,
