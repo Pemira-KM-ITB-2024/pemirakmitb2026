@@ -60,7 +60,9 @@ import React from "react";
 
 interface DataKandidatType {
   id: number;
+  noKandidat: number;
   name: string;
+  photoUrl: string;
   studentId: string;
   faculty: string;
   visi: string;
@@ -73,42 +75,72 @@ interface DataKandidatType {
 const DATA_KANDIDAT: DataKandidatType[] = [
   {
     id: 1,
-    name: "Lorem ipsum",
-    studentId: "12324001",
-    faculty: "kedokteran",
-    visi: "Lorem ipsum dolor sit amet. Est dolor illo qui repellendus voluptatem qui rerum nihil aut quisquam voluptate qui voluptate voluptas! Aut mollitia excepturi aut temporibus necessitatibus et blanditiis rerum ut quaerat voluptatem. Vel libero dignissimos 33 consequatur blanditiis qui atque ratione et natus exercitationem et corporis obcaecati quo suscipit delectus. Est illum accusantium quo excepturi eveniet est velit Quis ut dolores placeat.\n\nAut quia doloribus est dignissimos adipisci non neque natus. Sit necessitatibus omnis qui..",
-    misi: "Lorem ipsum dolor sit amet. Est dolor illo qui repellendus voluptatem qui rerum nihil aut quisquam voluptate qui voluptate voluptas! Aut mollitia excepturi aut temporibus necessitatibus et blanditiis rerum ut quaerat voluptatem. Vel libero dignissimos 33 consequatur blanditiis qui atque ratione et natus exercitationem et corporis obcaecati quo suscipit delectus. Est illum accusantium quo excepturi eveniet est velit Quis ut dolores placeat.\n\nAut quia doloribus est dignissimos adipisci non neque natus. Sit necessitatibus omnis qui molestias quia qui quis obcaecati. Ut consequatur quas sed voluptas explicabo et autem maxime est voluptas eligendi.\n\nEos repudiandae doloremque hic fugiat similique id necessitatibus fugit aut deserunt impedit? Id incidunt accusantium et tempora tenetur qui quas nisi in ducimus magni et odit cupiditate? Sit officia autem eos animi placeat qui voluptas aliquam et optio consequatur hic dolor eligendi et possimus quia.",
-    portfolioUrl: "https://drive.google.com/file",
-    instagramUrl: "https://www.instagram.com/username",
+    noKandidat: 1,
+    name: "Samuel P. H. Panjaitan",
+    photoUrl: "/calon-2026/1.png",
+    studentId: "EL'22",
+    faculty: "Teknik Elektro",
+    visi: "REINVENSI KM ITB MENUJU RELEVANSI KOLEKTIF UNTUK SEMUA",
+    misi: "1. Mencipta Ulang Kabinet yang Menghangatkan\n2. Mencipta Ulang Sistem yang Memudahkan\n3. Mencipta Ulang Kemahasiswaan yang Menyenangkan",
+    portfolioUrl: "https://drive.google.com/drive/folders/1nHnHPM179XaNVmsHJS9Fs3bopC1WzUOy?usp=sharing",
+    instagramUrl: "https://www.instagram.com/samthingbig",
   },
   {
     id: 2,
-    name: "Lorem ipsum",
-    studentId: "12324001",
-    faculty: "kedokteran",
-    visi: "Lorem ipsum dolor sit amet. Est dolor illo qui repellendus voluptatem qui rerum nihil aut quisquam voluptate qui voluptate voluptas! Aut mollitia excepturi aut temporibus necessitatibus et blanditiis rerum ut quaerat voluptatem. Vel libero dignissimos 33 consequatur blanditiis qui atque ratione et natus exercitationem et corporis obcaecati quo suscipit delectus. Est illum accusantium quo excepturi eveniet est velit Quis ut dolores placeat.\n\nAut quia doloribus est dignissimos adipisci non neque natus. Sit necessitatibus omnis qui..",
-    misi: "Lorem ipsum dolor sit amet. Est dolor illo qui repellendus voluptatem qui rerum nihil aut quisquam voluptate qui voluptate voluptas! Aut mollitia excepturi aut temporibus necessitatibus et blanditiis rerum ut quaerat voluptatem. Vel libero dignissimos 33 consequatur blanditiis qui atque ratione et natus exercitationem et corporis obcaecati quo suscipit delectus. Est illum accusantium quo excepturi eveniet est velit Quis ut dolores placeat.\n\nAut quia doloribus est dignissimos adipisci non neque natus. Sit necessitatibus omnis qui molestias quia qui quis obcaecati. Ut consequatur quas sed voluptas explicabo et autem maxime est voluptas eligendi.\n\nEos repudiandae doloremque hic fugiat similique id necessitatibus fugit aut deserunt impedit? Id incidunt accusantium et tempora tenetur qui quas nisi in ducimus magni et odit cupiditate? Sit officia autem eos animi placeat qui voluptas aliquam et optio consequatur hic dolor eligendi et possimus quia.",
-    portfolioUrl: "https://drive.google.com/file",
-    instagramUrl: "https://www.instagram.com/username",
+    noKandidat: 2,
+    name: "Nahdah Nabillah HR.",
+    photoUrl: "/calon-2026/2.png",
+    studentId: "PL'22",
+    faculty: "Perencanaan Wilayah dan Kota",
+    visi: "KM ITB sebagai Inisiator Keberdampakan yang Relevan-Berkelanjutan untuk Kemajuan Bangsa",
+    misi: "1. Mendorong pemenuhan kebutuhan dasar dan lanjutan yang relevan untuk menciptakan individu berdaya dalam menjawab tantangan zaman.\n2. Mengoptimalkan lini pergerakan yang berbasis kebenaran ilmiah untuk menciptakan keberdampakan bermakna.\n3. Mewujudkan sistem organisasi yang integratif-kolaboratif guna menjaga relevansi dan keberlanjutan KM ITB.\n4. Memperluas jejaring dan merawat kolaborasi eksternal untuk mengeskalasi keberdampakan.",
+    portfolioUrl: "https://drive.google.com/drive/folders/1Wlf1Q82nQdmcqgMUD7kWT-f1D0dk-DVB?usp=sharing",
+    instagramUrl: "https://www.instagram.com/bersama.nahda",
   },
   {
     id: 3,
-    name: "Lorem ipsum",
-    studentId: "12324001",
-    faculty: "kedokteran",
-    visi: "Lorem ipsum dolor sit amet. Est dolor illo qui repellendus voluptatem qui rerum nihil aut quisquam voluptate qui voluptate voluptas! Aut mollitia excepturi aut temporibus necessitatibus et blanditiis rerum ut quaerat voluptatem. Vel libero dignissimos 33 consequatur blanditiis qui atque ratione et natus exercitationem et corporis obcaecati quo suscipit delectus. Est illum accusantium quo excepturi eveniet est velit Quis ut dolores placeat.Aut quia doloribus est dignissimos adipisci non neque natus. Sit necessitatibus omnis qui..",
-    misi: "Lorem ipsum dolor sit amet. Est dolor illo qui repellendus voluptatem qui rerum nihil aut quisquam voluptate qui voluptate voluptas! Aut mollitia excepturi aut temporibus necessitatibus et blanditiis rerum ut quaerat voluptatem. Vel libero dignissimos 33 consequatur blanditiis qui atque ratione et natus exercitationem et corporis obcaecati quo suscipit delectus. Est illum accusantium quo excepturi eveniet est velit Quis ut dolores placeat.Aut quia doloribus est dignissimos adipisci non neque natus. Sit necessitatibus omnis qui molestias quia qui quis obcaecati. Ut consequatur quas sed voluptas explicabo et autem maxime est voluptas eligendi.Eos repudiandae doloremque hic fugiat similique id necessitatibus fugit aut deserunt impedit? Id incidunt accusantium et tempora tenetur qui quas nisi in ducimus magni et odit cupiditate? Sit officia autem eos animi placeat qui voluptas aliquam et optio consequatur hic dolor eligendi et possimus quia.",
-    portfolioUrl: "https://drive.google.com/file",
-    instagramUrl: "https://www.instagram.com/username",
+    noKandidat: 3,
+    name: "Hazmi Abdul Jalil",
+    photoUrl: "/calon-2026/3.png",
+    studentId: "BA'22",
+    faculty: "Rekayasa Pertanian",
+    visi: "Mengakselerasi dan menumbuhkan KM ITB sebagai ekosistem yang terintegrasi dan kolaboratif dalam mewujudkan keterhubungan dan kebermanfaatan bagi seluruh anggotanya.",
+    misi: "1. Memperkuat keterhubungan dan integrasi ekosistem KM ITB melalui optimalisasi peran antar lembaga serta implementasi sistem multikampus yang inklusif dan terkoordinasi.\n2. Mengakselerasi proses pengembangan mahasiswa melalui sistem yang terarah, terintegrasi, dan berbasis pengalaman untuk membentuk insan akademis yang adaptif dan berdampak.\n3. Meningkatkan keterjangkauan dan kualitas layanan mahasiswa melalui sistem yang terintegrasi, responsif, dan berorientasi pada kebutuhan nyata mahasiswa.\n4. Membangun sistem kaderisasi KM ITB yang terintegrasi lintas lembaga, berkelanjutan, dan berbasis data sebagai fondasi pengembangan mahasiswa.\n5. Mewujudkan tata kelola organisasi yang transparan, partisipatif, dan akuntabel untuk mendorong keterlibatan mahasiswa yang bermakna.\n6. Menguatkan konsolidasi pergerakan mahasiswa yang adaptif, kolaboratif, dan berkelanjutan dalam merespons dinamika isu serta menjaga arah gerak organisasi.",
+    portfolioUrl: "https://drive.google.com/drive/folders/1yv14tdjEr5oWZ6jClXa6UqgBfPlWfXb7?usp=sharing",
+    instagramUrl: "https://www.instagram.com/hazmi_bok3m",
+  },
+  {
+    id: 4,
+    noKandidat: 1,
+    name: "David Christian Saputro",
+    photoUrl: "/calon-2026/4.png",
+    studentId: "AR'22",
+    faculty: "Arsitektur",
+    visi: "MWA WM sebagai titik temu suara mahasiswa sebagai advokasi inklusif dan menciptakan keberlanjutan yang progresif.",
+    misi: "1. Menciptakan titik temu untuk mensinergikan aspirasi mahasiswa yang akuntabel.\n2. Mendorong pengawalan kebijakan kampus melalui advokasi yang representatif.\n3. Meningkatkan diseminasi informasi yang transparan guna mendorong keberlanjutan yang progresif.",
+    portfolioUrl: "https://drive.google.com/drive/folders/1hmha81eTolyZG0mLRwBr3Ijq8pPOtU0G?usp=sharing",
+    instagramUrl: "https://www.instagram.com/bertemudavid",
+  },
+  {
+    id: 5,
+    noKandidat: 2,
+    name: "Rian Albar Insani",
+    photoUrl: "/calon-2026/5.png",
+    studentId: "BA'22",
+    faculty: "Rekayasa Pertanian",
+    visi: "MWA WM sebagai personifikasi kemajemukan mahasiswa sekaligus jembatan aksesibilitas dalam mengawal pembenahan institusi dan kemahasiswaan ITB.",
+    misi: "1. Mengintegrasikan kemajemukan mahasiswa menjadi satu kesatuan suara advokasi yang representatif.\n2. Membuka aksesibilitas dialog antara mahasiswa dan pemangku kebijakan secara proaktif dan berbasis data.\n3. Mendorong pembenahan tata kelola institusi serta menyinergikan elemen kemahasiswaan secara akuntabel.",
+    portfolioUrl: "https://drive.google.com/drive/folders/1A6RW3BGYzpBufX7LEcStxdEIeALaZeH6?usp=sharing",
+    instagramUrl: "https://www.instagram.com/seruan.sanubari",
   },
 ];
 
 interface ProfileCardProps {
-  no_kandidat: number;
+  id: number;
 }
 
-export const ProfileCard = ({ no_kandidat }: ProfileCardProps) => {
-  const candidate = DATA_KANDIDAT.find((d) => d.id === no_kandidat) ?? DATA_KANDIDAT[0];
+export const ProfileCard = ({ id }: ProfileCardProps) => {
+  const candidate = DATA_KANDIDAT.find((d) => d.id === id);
 
   if (!candidate) {
     return <div>Data kandidat tidak ditemukan</div>;
@@ -120,12 +152,16 @@ export const ProfileCard = ({ no_kandidat }: ProfileCardProps) => {
         
         {/* foto n nomor kandidat */}
         <div className="relative flex-shrink-0">
-          <div className="h-28 w-28 rounded-full bg-rose-500 md:h-32 md:w-32 lg:h-56 lg:w-56" />
+          <img
+            src={candidate.photoUrl}
+            alt={candidate.name}
+            className="h-28 w-28 rounded-full object-cover md:h-32 md:w-32 lg:h-56 lg:w-56"
+          />
           
           {/* Nomor Kandidat (Absolute relative terhadap foto wrapper ini) */}
           <div className="absolute bottom-0.5 right-1 inline-flex h-7 w-7 items-center justify-center rounded-full bg-sky-800 md:bottom-0 md:right-0 md:h-11 md:w-11 lg:bottom-2 lg:right-2 lg:h-14 lg:w-14">
             <div className="text-xs font-normal text-yellow-50 md:text-xl">
-               {String(no_kandidat).padStart(2, '0')}
+               {String(candidate.noKandidat).padStart(2, '0')}
             </div>
           </div>
         </div>
@@ -150,9 +186,9 @@ export const ProfileCard = ({ no_kandidat }: ProfileCardProps) => {
 
         {/* FOOTER LINKS */}
         <div className="flex w-full items-center justify-between pt-2 px-9 gap-3 text-center md:w-[90%] md:justify-between md:px-20">
-             <SocialLink label="PORTOFOLIO" href={candidate.portfolioUrl} align="left" />
+             <SocialLink label="DRAF" href={candidate.portfolioUrl} align="left" />
              <div className="mx-auto h-[3px] w-[3px] rounded-full bg-rose-500 md:h-[6px] md:w-[6px]" />
-             <SocialLink label="@username" href={candidate.instagramUrl} align="right" />
+             <SocialLink label={candidate.instagramUrl.replace("https://www.instagram.com/", "@")} href={candidate.instagramUrl} align="right" />
         </div>
 
       </div>
