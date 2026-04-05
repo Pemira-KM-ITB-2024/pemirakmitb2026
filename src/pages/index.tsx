@@ -280,7 +280,7 @@ export default function Home() {
           lineHeight: 'normal',
         }}
       >
-        Lorem ipsum dolor sit amet. Ex dolorem exercitationem et iure odio sed corporis iusto non reprehenderit magni. Cum nemo nihil et voluptas veniam rem dolorem nobis ut quisquam suscipit. Et galisum Quis ut ducimus tempore ut saepe ratione et blanditiis cupiditate et exercitationem quod sit delectus repellat. Id consectetur quod sit quia beatae ea quisquam iure.
+        Pemilihan Umum Raya Keluarga Mahasiswa Institut Teknologi Bandung (Pemilu Raya KM ITB) Masa Referendum merupakan kelanjutan dari Pemilu Raya KM ITB 2025/2026, yakni wadah demokrasi dan regenerasi kepemimpinan kemahasiswaan ITB yang diselenggarakan berdasarkan Ketetapan Sidang Istimewa Kongres KM ITB Nomor 002 Tahun 2026 pada 9 Maret 2026. Pemilu Raya KM ITB Masa Referendum hadir dengan tetap mengemban tiga tujuan utama, yaitu menjadi wadah bagi mahasiswa ITB yang ingin menyalurkan ketertarikannya di bidang kepemimpinan, menjadi ruang pengembangan diri bagi mereka yang memiliki potensi memimpin, serta menjadi media regenerasi kepemimpinan kemahasiswaan ITB yang diharapkan dapat melahirkan pemimpin masa depan bangsa demi terwujudnya era kepemimpinan baru yang mampu menjadi motor penggerak seluruh aktivitas kemahasiswaan di Institut Teknologi Bandung.
       </div>
       {/* FORSOS */}
       <div
