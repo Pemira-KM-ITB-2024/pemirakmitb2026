@@ -5,10 +5,14 @@ import { programStudi } from "~/lib/constant/jurusan";
 
 const prisma = new PrismaClient();
 
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://pemirakmitb.com"
-    : "http://localhost:3000";
+const isProduction = process.env.NODE_ENV_CUSTOM === "production";
+const isStaging = process.env.VERCEL_ENV === "preview";
+
+const baseUrl = isProduction
+  ? "https://pemirakmitb.com"
+  : isStaging
+  ? "https://pemirakmitb2026.vercel.app"
+  : "http://localhost:3000";
 
 export default NextAuth({
   debug: true,
@@ -36,15 +40,17 @@ export default NextAuth({
   cookies: {
     sessionToken: {
       name:
-        process.env.NODE_ENV === "production"
+        isProduction || isStaging
           ? "__Secure-next-auth.session-token"
           : "next-auth.session-token",
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: isProduction || isStaging,
         domain:
-          process.env.NODE_ENV === "production"
+          isProduction
             ? "pemirakmitb.com"
+            : isStaging
+            ? undefined // Vercel preview uses host-specific cookies
             : "localhost",
 
         sameSite: "lax",
@@ -55,12 +61,14 @@ export default NextAuth({
       name: "next-auth.state",
       options: {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
+        secure: isProduction || isStaging,
         sameSite: "lax",
         path: "/",
         domain:
-          process.env.NODE_ENV === "production"
+          isProduction
             ? "pemirakmitb.com"
+            : isStaging
+            ? undefined // Vercel preview uses host-specific cookies
             : "localhost",
         maxAge: 60 * 20,
       },
@@ -134,7 +142,7 @@ export default NextAuth({
       }
     },
     async redirect({ url, baseUrl: defaultUrl }) {
-      const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+      const protocol = isProduction || isStaging ? "https" : "http";
       const finalBaseUrl = `${protocol}://${baseUrl.replace(
         /^https?:\/\//,
         "",

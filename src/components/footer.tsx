@@ -109,7 +109,7 @@ const Footer = () => {
           </h2>
 
           <Link
-            href=""
+            href="/vote"
             className="mb-12 inline-flex min-w-[220px] items-center justify-center rounded-full bg-[#0FB59A] px-8 py-2.5 text-lg tracking-wide transition-all duration-300 hover:scale-[1.02] hover:bg-[#0DAA91] md:min-w-[380px] md:px-16 md:py-6 md:text-4xl"
           >
             MULAI VOTING

@@ -4,9 +4,12 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { body } from "@fonts";
+import { on } from "events";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0 });
   const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -14,14 +17,16 @@ const Navbar = () => {
   const mainLinks = [
     { href: "/", label: "Home" },
     { href: "/profil-calon", label: "Profil Kandidat" },
+    ...session ? [{ href: "/vote", label: "Vote" }] : [],
   ];
 
   const menuLinks = [
-    { href: "", label: "Hearing" },
-    { href: "", label: "Live Report" },
-    { href: "", label: "Pelaporan" },
-    { href: "https://bit.ly/dokumenTAP", label: "Dokumen TAP" },
-    { href: "", label: "Sign in" },
+    //TODO: LINK HEARING
+    { href: "https://bit.ly/KampanyePemira26", label: "Publikasi Kampanye", onClick: null},
+    { href: "https://bit.ly/LaporanPelangaran", label: "Pelaporan", onClick: null},
+    { href: "https://drive.google.com/file/d/1o6XjFdfk8ywviOsoYRJ_2ie3nDycGgyZ/view?usp=share_link", label: "Dokumen TAP", onClick: null},
+    ...(session ? [{ href: "", label: "Sign out", onClick: () => signOut({ callbackUrl: "/" })}] : 
+    [{ href: "", label: "Sign in", onClick: () => signIn("azure-ad") }])
   ];
 
   const activeIndex = Math.max(
@@ -113,7 +118,12 @@ const Navbar = () => {
             <li key={link.href}>
               <Link
                 href={link.href}
-                onClick={() => setIsOpen(false)}
+                onClick={async () => {
+                  setIsOpen(false);
+                  if (link.onClick) {
+                    await link.onClick()
+                  };
+                }}
                 className="transition-colors duration-300 hover:text-[#BEEF62]"
               >
                 {link.label}

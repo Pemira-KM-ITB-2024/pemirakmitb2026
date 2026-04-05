@@ -4,9 +4,14 @@ import type { NextApiRequest, NextApiResponse } from "next";
 const signOutHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const token = await getToken({ req });
 
-  const isProduction = process.env.NODE_ENV === "production";
-  const secure = isProduction ? "Secure;" : "";
-  const domain = isProduction ? "Domain=pemirakmitb.com;" : "Domain=localhost;";
+  const isProduction = process.env.NODE_ENV_CUSTOM === "production";
+  const isStaging = process.env.VERCEL_ENV === "preview";
+  const secure = isProduction || isStaging ? "Secure;" : "";
+  const domain = isProduction
+    ? "Domain=pemirakmitb.com;"
+    : isStaging
+    ? "" // Vercel preview uses host-specific cookies (no Domain attribute)
+    : "Domain=localhost;";
 
   if (token) {
     // Clear all possible session cookies with proper domain
