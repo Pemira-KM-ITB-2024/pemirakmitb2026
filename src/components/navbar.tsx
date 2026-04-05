@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const menuLinks = [
     //TODO: LINK HEARING
-    { href: "bit.ly/KampanyePemira26", label: "Publikasi Kampanye", onClick: null},
+    { href: "https://bit.ly/KampanyePemira26", label: "Publikasi Kampanye", onClick: null},
     { href: "https://bit.ly/LaporanPelangaran", label: "Pelaporan", onClick: null},
     { href: "https://drive.google.com/file/d/1o6XjFdfk8ywviOsoYRJ_2ie3nDycGgyZ/view?usp=share_link", label: "Dokumen TAP", onClick: null},
     ...(session ? [{ href: "", label: "Sign out", onClick: () => signOut({ callbackUrl: "/" })}] : 
