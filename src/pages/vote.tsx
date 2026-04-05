@@ -9,14 +9,14 @@ import { sexsmith, unbounded } from "~/styles/fonts";
 import Swal from "sweetalert2";
 
 const K3M_CANDIDATES = [
-  { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/calon-2026/1.png", bgColor: "#EF476F" },
-  { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/calon-2026/2.png", bgColor: "#F2B61E" },
-  { id: 3, name: "Calon 3", faculty: "XX'YY", imgUrl: "/calon-2026/3.png", bgColor: "#0A8E8B" },
+  { id: 1, name: "Samuel P. H. Panjaitan", faculty: "EL'22", imgUrl: "/calon-2026/1.png", bgColor: "#EF476F" },
+  { id: 2, name: "Nahdah Nabillah HR.", faculty: "PL'22", imgUrl: "/calon-2026/2.png", bgColor: "#F2B61E" },
+  { id: 3, name: "Hazmi Abdul Jalil", faculty: "BA'22", imgUrl: "/calon-2026/3.png", bgColor: "#0A8E8B" },
 ];
 
 const MWAWM_CANDIDATES = [
-  { id: 1, name: "Calon 1", faculty: "XX'YY", imgUrl: "/calon-2026/4.png", bgColor: "#EF476F" },
-  { id: 2, name: "Calon 2", faculty: "XX'YY", imgUrl: "/calon-2026/5.png", bgColor: "#F2B61E" },
+  { id: 1, name: "David Christian Saputro", faculty: "AR'22", imgUrl: "/calon-2026/4.png", bgColor: "#EF476F" },
+  { id: 2, name: "Rian Albar Insani", faculty: "BA'22", imgUrl: "/calon-2026/5.png", bgColor: "#F2B61E" },
 ];
 
 // Kotak Kosong is represented by id 0
@@ -511,7 +511,7 @@ const Vote = ({
               >
                 Saya yakin dengan pilihan saya dan memahami bahwa suara yang
                 saya berikan bersifat final. Saya telah mempertimbangkan dengan
-                saksama sebelum memberikan suara dalam Pemira KM ITB 2024/2025
+                saksama sebelum memberikan suara dalam Pemira KM ITB Masa Referendum Tahun 2026.
               </label>
             </div>
 
