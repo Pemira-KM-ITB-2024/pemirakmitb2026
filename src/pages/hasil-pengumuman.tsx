@@ -151,7 +151,7 @@ function HasilPengumuman() {
     if (isPermanentlyOpen) return;
 
     if (!isResultReleased()) {
-      toast.error("Hasil voting belum dapat dibuka. Pengumuman pada 11 April 2026", {
+      toast.error("Hasil voting belum dapat dibuka. Pengumuman pada 10 April 2026", {
         position: "top-center",
         autoClose: 3000,
         toastId: "result-not-open-yet",
