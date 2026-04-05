@@ -9,6 +9,10 @@ const K3M_CANDIDATES = 3;
 const MWAWM_CANDIDATES = 2;
 const KOTAK_KOSONG_ID = 0;
 
+const isStressTest =
+  process.env.STRESS_TEST === "true" &&
+  Boolean(process.env.STRESS_TEST_SECRET);
+
 interface VoteData {
   email: string;
   rankingsK3M?: number[];
@@ -45,20 +49,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(403).end();
   }
 
-  if (!req.headers["x-csrf-token"]) {
-    return res.status(403).json({ error: "Missing CSRF token" });
+  // Stress test mode: bypass auth and hasVoted check
+  let sessionEmail: string | null = null;
+  if (isStressTest) {
+    sessionEmail = req.body.email ?? null;
+  } else {
+    if (!req.headers["x-csrf-token"]) {
+      return res.status(403).json({ error: "Missing CSRF token" });
+    }
+    const session = await getToken({ req });
+    if (!session?.email) {
+      return res.status(401).end();
+    }
+    if (req.body.email !== session.email) {
+      return res.status(403).json({ error: "Email mismatch" });
+    }
+    sessionEmail = session.email;
   }
 
-  const session = await getToken({ req });
-  if (!session?.email) {
-    return res.status(401).end();
-  }
-
-  const { email, rankingsK3M, rankingsMWAWM }: VoteData = req.body;
-
-  if (email !== session.email) {
-    return res.status(403).json({ error: "Email mismatch" });
-  }
+  const { rankingsK3M, rankingsMWAWM }: VoteData = req.body;
 
   if (rankingsK3M && !isValidRanking(rankingsK3M, K3M_CANDIDATES)) {
     return res.status(400).json({ error: "Invalid K3M rankings" });
@@ -67,10 +76,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: "Invalid MWAWM rankings" });
   }
 
+  if (!sessionEmail) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
   try {
     await prisma.$transaction(async (tx) => {
       const user = await tx.user.findUnique({
-        where: { email },
+        where: { email: sessionEmail },
       });
 
       if (!user) {
@@ -81,7 +94,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       await tx.user.update({
-        where: { email },
+        where: { email: sessionEmail },
         data: { hasVoted: true },
       });
 
