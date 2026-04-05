@@ -15,6 +15,7 @@ export interface ElectionResult {
   kotakKosongVotes: number;
   exhaustedVotes: number;
   candidateNames: string[];
+  candidatePhotoUrls: string[];
 }
 
 // Props utama untuk komponen VotingCard
@@ -30,6 +31,7 @@ const VotingCard: React.FC<VotingCardProps> = ({
   const renderCandidate = (
     candidateNum: number,
     name: string,
+    photoUrl: string,
     rounds: RoundData[],
     totalVotes: number,
     isWinner: boolean
@@ -47,7 +49,12 @@ const VotingCard: React.FC<VotingCardProps> = ({
         )}
 
         {/* Foto Profil / Placeholder Pink */}
-        <div className="relative w-20 sm:w-28 md:w-36 h-20 sm:h-28 md:h-36 bg-[#D6546A] rounded-full mb-2 sm:mb-3 shadow-lg flex items-center justify-center border-4 border-white">
+        <div className="relative w-20 sm:w-28 md:w-36 h-20 sm:h-28 md:h-36 bg-[#D6546A] rounded-full mb-2 sm:mb-3 shadow-lg flex items-center justify-center border-4 border-white overflow-hidden">
+          <img
+            src={photoUrl}
+            alt={name}
+            className="h-full w-full object-cover"
+          />
           {/* Badge Nomor Urut */}
           <div className="absolute bottom-0 right-0 bg-[#12499D] text-white text-[10px] sm:text-xs w-5 sm:w-6 md:w-7 h-5 sm:h-6 md:h-7 rounded-full flex items-center justify-center border-2 border-white font-bold">
             {String(candidateNum).padStart(2, '0')}
@@ -142,6 +149,7 @@ const VotingCard: React.FC<VotingCardProps> = ({
                   {renderCandidate(
                     candidateNum,
                     name,
+                    election.candidatePhotoUrls[idx] ?? "",
                     election.rounds,
                     election.totalVotes,
                     election.winner === candidateNum

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import VotingCard, { ElectionResult } from "../components/ui/votingCard";
+import VotingCard from "../components/ui/votingCard";
+import type { ElectionResult } from "../components/ui/votingCard";
 import EnvelopeAnimation from "../components/ui/EnvelopeAnimation";
 import { Bounce, toast } from "react-toastify";
 // import Navbar from "../components/navbar";
@@ -26,9 +27,26 @@ interface ApiResult {
   mwawm: IRVResult;
 }
 
-// Placeholder candidate names - replace with actual names from your data source
-const K3M_CANDIDATE_NAMES = ["Calon 1", "Calon 2", "Calon 3"];
-const MWAWM_CANDIDATE_NAMES = ["Calon 1", "Calon 2"];
+const K3M_CANDIDATE_NAMES = [
+  "Samuel P. H. Panjaitan (EL'22)",
+  "Nahdah Nabillah HR. (PL'22)",
+  "Hazmi Abdul Jalil (BA'22)",
+];
+const MWAWM_CANDIDATE_NAMES = [
+  "David Christian Saputro (AR'22)",
+  "Rian Albar Insani (BA'22)",
+];
+
+const K3M_CANDIDATE_PHOTOS = [
+  "/calon-2026/1.png",
+  "/calon-2026/2.png",
+  "/calon-2026/3.png",
+];
+
+const MWAWM_CANDIDATE_PHOTOS = [
+  "/calon-2026/4.png",
+  "/calon-2026/5.png",
+];
 
 function HasilPengumuman() {
   const [stage, setStage] = useState<1 | 2>(1);
@@ -89,6 +107,7 @@ function HasilPengumuman() {
       kotakKosongVotes: resultData.k3m.kotakKosongVotes,
       exhaustedVotes: resultData.k3m.exhaustedVotes,
       candidateNames: K3M_CANDIDATE_NAMES,
+      candidatePhotoUrls: K3M_CANDIDATE_PHOTOS,
     };
 
     const rightElection: ElectionResult = {
@@ -104,6 +123,7 @@ function HasilPengumuman() {
       kotakKosongVotes: resultData.mwawm.kotakKosongVotes,
       exhaustedVotes: resultData.mwawm.exhaustedVotes,
       candidateNames: MWAWM_CANDIDATE_NAMES,
+      candidatePhotoUrls: MWAWM_CANDIDATE_PHOTOS,
     };
 
     return { leftElection, rightElection };
@@ -235,7 +255,7 @@ function HasilPengumuman() {
                   </div>
                 ) : (
                   <div className="transition-all duration-700 ease-out mt-28">
-                    <VotingCard {...(transformToVotingData() ?? { leftElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [] }, rightElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [] } })} />
+                    <VotingCard {...(transformToVotingData() ?? { leftElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [], candidatePhotoUrls: [] }, rightElection: { title: "", winner: null, rounds: [], totalVotes: 0, kotakKosongVotes: 0, exhaustedVotes: 0, candidateNames: [], candidatePhotoUrls: [] } })} />
                   </div>
                 )}
               </div>
