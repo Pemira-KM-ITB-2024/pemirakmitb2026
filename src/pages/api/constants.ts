@@ -1,3 +1,3 @@
-export const VOTE_DEADLINE = "2026-04-10T17:00:00.000+07:00";
-export const VOTE_START = "2026-04-05T07:00:00.000+07:00";
-export const RESULT_DATE = "2026-04-04T22:00:00.000+07:00";
+export const VOTE_DEADLINE = process.env.VOTE_DEADLINE;
+export const VOTE_START = process.env.VOTE_START;
+export const RESULT_DATE = process.env.RESULT_DATE;
