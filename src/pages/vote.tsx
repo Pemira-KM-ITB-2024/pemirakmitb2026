@@ -238,7 +238,29 @@ const Vote = ({
               });
               void router.push("/");
             } else {
-              toast.error("Vote failed!", {
+              const fallbackMessage = "Vote failed!";
+              let errorMessage = fallbackMessage;
+              const responseClone = response.clone();
+
+              try {
+                const errorData = (await response.json()) as {
+                  message?: string;
+                  error?: string;
+                };
+                errorMessage =
+                  errorData.message ?? errorData.error ?? fallbackMessage;
+              } catch {
+                try {
+                  const textMessage = await responseClone.text();
+                  if (textMessage) {
+                    errorMessage = textMessage;
+                  }
+                } catch {
+                  errorMessage = fallbackMessage;
+                }
+              }
+
+              toast.error(errorMessage, {
                 position: "top-center",
                 autoClose: 3000,
                 toastId: "vote-error",
@@ -571,7 +593,7 @@ const Vote = ({
             className="text-center text-base sm:text-lg text-[#0A8E8B] md:text-2xl"
             style={{ fontFamily: "var(--font-unbounded), sans-serif" }}
           >
-            Hasil perhitungan suara akan diumumkan: 11 Maret 2025
+            Hasil perhitungan suara akan diumumkan: 10 April 2026
           </p>
         </main>
       )}

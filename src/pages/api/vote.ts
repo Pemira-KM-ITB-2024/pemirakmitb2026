@@ -29,13 +29,16 @@ const isValidRanking = (rankings: number[], num: number): boolean => {
   return true;
 };
 
-const VOTE_DEADLINE = "2027-03-09T23:59:59.999+07:00";
+const VOTE_DEADLINE = "2026-04-10T17:00:00.000+07:00";
+const VOTE_START = "2026-04-05T07:00:00.000+07:00";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") {
     return res.status(405).end();
   }
-
+  if (new Date() < new Date(VOTE_START)) {
+    return res.status(403).json({ error: "Voting period has not started yet" });
+  }
   if (new Date() > new Date(VOTE_DEADLINE)) {
     return res.status(403).json({ error: "Voting period has ended" });
   }
