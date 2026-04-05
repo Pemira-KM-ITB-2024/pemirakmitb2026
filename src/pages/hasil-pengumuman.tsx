@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import VotingCard from "../components/ui/votingCard";
 import type { ElectionResult } from "../components/ui/votingCard";
 import EnvelopeAnimation from "../components/ui/EnvelopeAnimation";
@@ -52,11 +53,18 @@ const MWAWM_CANDIDATE_PHOTOS = [
 const isResultReleased = () => new Date() >= new Date(RESULT_DATE);
 
 function HasilPengumuman() {
+  const router = useRouter();
   const [stage, setStage] = useState<1 | 2>(1);
   const [isPermanentlyOpen, setIsPermanentlyOpen] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const [resultData, setResultData] = useState<ApiResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Redirect users away until official release time.
+  useEffect(() => {
+    if (isResultReleased()) return;
+    void router.replace("/");
+  }, [router]);
 
   // Fetch results from API
   const fetchResults = async () => {
