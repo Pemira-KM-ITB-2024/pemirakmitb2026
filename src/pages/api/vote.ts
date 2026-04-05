@@ -19,6 +19,15 @@ interface VoteData {
   rankingsMWAWM: number[];
 }
 
+const isK3MEligibleByEmail = (email: string): boolean => {
+  const localPart = email.split("@")[0] ?? "";
+  return localPart.startsWith("1");
+};
+
+const isAllowedVotingDomain = (email: string): boolean => {
+  return email.toLowerCase().endsWith("@mahasiswa.itb.ac.id");
+};
+
 const isValidRanking = (rankings: number[], num: number): boolean => {
   // Kotak Kosong: must be the only selection
   if (rankings.includes(KOTAK_KOSONG_ID)) {
@@ -61,6 +70,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!session?.email) {
       return res.status(401).end();
     }
+    if (!isAllowedVotingDomain(session.email)) {
+      return res.status(403).json({ error: "Unauthorized email domain" });
+    }
     if (req.body.email !== session.email) {
       return res.status(403).json({ error: "Email mismatch" });
     }
@@ -68,6 +80,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const { rankingsK3M, rankingsMWAWM }: VoteData = req.body;
+
+  // Enforce K3M eligibility server-side
+  if (!isStressTest && sessionEmail && rankingsK3M && !isK3MEligibleByEmail(sessionEmail)) {
+    return res.status(403).json({ error: "User is not eligible to vote for K3M" });
+  }
 
   if (rankingsK3M && !isValidRanking(rankingsK3M, K3M_CANDIDATES)) {
     return res.status(400).json({ error: "Invalid K3M rankings" });
