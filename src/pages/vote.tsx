@@ -45,6 +45,7 @@ const Vote = ({
   useEffect(() => {
     const checkVotingPeriod = () => {
       const now = new Date();
+      if (!VOTE_DEADLINE) return;
       const deadline = new Date(VOTE_DEADLINE);
 
       if (now > deadline) {
@@ -61,10 +62,9 @@ const Vote = ({
         void router.push("/");
       }
     };
-    //TODO: (Temporary)
-    // checkVotingPeriod();
-    // const interval = setInterval(checkVotingPeriod, 60000);
-    // return () => clearInterval(interval);
+    checkVotingPeriod();
+    const interval = setInterval(checkVotingPeriod, 60000);
+    return () => clearInterval(interval);
   }, [router]);
 
   const extractNumberFromEmail = (email: string) => {
@@ -150,9 +150,8 @@ const Vote = ({
     [],
   );
 
-  //TODO: Temporary
-  // const canVoteK3M = nimStartsWith === "1" && userJurusan !== "Pascasarjana";
-  const canVoteK3M = true;
+  const canVoteK3M = nimStartsWith === "1" && userJurusan !== "Pascasarjana";
+  // const canVoteK3M = true;
   // Complete if all candidates ranked OR Kotak Kosong selected
   const isK3MComplete = rankingsK3M.includes(KOTAK_KOSONG_ID) || rankingsK3M.length === K3M_CANDIDATES.length;
   const isMWAWMComplete = rankingsMWAWM.includes(KOTAK_KOSONG_ID) || rankingsMWAWM.length === MWAWM_CANDIDATES.length;
