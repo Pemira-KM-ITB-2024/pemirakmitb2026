@@ -22,7 +22,7 @@ const Navbar = () => {
 
   const menuLinks = [
     //TODO: LINK HEARING
-    { href: "", label: "Hearing", onClick: null},
+    { href: "https://drive.google.com/drive/folders/1f-UT255UKcVzYfOcSx0rclvsg6sQ64o2?usp=drive_link", label: "Hearing", onClick: null},
     { href: "https://bit.ly/LaporanPelangaran", label: "Pelaporan", onClick: null},
     { href: "https://drive.google.com/file/d/18miGM3H1IEuj_zuqxE1kKvxsJmnTGZWe/view?usp=sharing", label: "Dokumen TAP", onClick: null},
     ...(session ? [{ href: "", label: "Sign out", onClick: () => signOut({ callbackUrl: "/" })}] : 
