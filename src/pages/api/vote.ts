@@ -55,7 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   if (process.env.NODE_ENV_CUSTOM === "production" && req.headers.origin !== "https://pemirakmitb.com") {
-    return res.status(403).end();
+    return res.status(403).json({ error: "Invalid origin: " + req.headers.origin });
   }
 
   // Stress test mode: bypass auth and hasVoted check
