@@ -17,7 +17,8 @@ const Navbar = () => {
   const mainLinks = [
     { href: "/", label: "Home" },
     { href: "/profil-calon", label: "Profil Kandidat" },
-    ...session ? [{ href: "/vote", label: "Vote" }] : [],
+    // ...session ? [{ href: "/vote", label: "Hasil" }] : [],
+    { href: "/hasil-pengumuman", label: "Hasil" },
   ];
 
   const menuLinks = [
