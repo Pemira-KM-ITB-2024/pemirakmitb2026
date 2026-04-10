@@ -73,10 +73,11 @@ const runIRV = (votes: Vote[], numCandidates: number): IRVResult => {
         rounds.push({ round, counts, percentages, exhaustedVotes: currentExhausted });
 
         // Check for winner (>50% of active votes)
+        let currWinner = 0;
         for (const c of activeCandidates) {
-            if (counts[c]! > activeVotes / 2) {
+            if (counts[c]! > activeVotes / 2 && counts[c]! > currWinner) {
                 winner = c;
-                break;
+                currWinner = c;
             }
         }
 
