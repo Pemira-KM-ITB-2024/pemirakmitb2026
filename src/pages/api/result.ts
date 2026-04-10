@@ -61,11 +61,13 @@ const runIRV = (votes: Vote[], numCandidates: number): IRVResult => {
                 currentExhausted++;
             } else if (activeCandidates.has(vote)) {
                 counts[vote] = (counts[vote] ?? 0) + 1;
+            } else {
+                currentExhausted++;
             }
         }
 
         // Calculate percentages based on active votes (non-exhausted)
-        const activeVotes = totalVotes - kotakKosongVotes - exhaustedVotes;
+        const activeVotes = totalVotes;
         for (const c of activeCandidates) {
             percentages[c] = activeVotes > 0 ? Math.round((counts[c]! / activeVotes) * 10000) / 100 : 0;
         }

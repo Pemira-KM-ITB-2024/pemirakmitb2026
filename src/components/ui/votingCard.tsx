@@ -73,7 +73,7 @@ const VotingCard: React.FC<VotingCardProps> = ({
 
         {/* Final Percentage */}
         <div className="font-black text-[#12499D] text-3xl sm:text-4xl md:text-5xl leading-none mb-2">
-          {finalPercent}%
+          {finalPercent != 0 ? `${finalPercent}%` : 'Eliminated'}
         </div>
 
         {/* Total Suara */}
