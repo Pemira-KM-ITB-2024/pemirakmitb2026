@@ -38,6 +38,7 @@ const VotingCard: React.FC<VotingCardProps> = ({
   ) => {
     const lastRoundIndex = rounds.length - 1;
     const finalPercent = rounds[lastRoundIndex]?.percentages[candidateNum] ?? 0;
+    const isFinalEliminated = finalPercent === 0;
 
     return (
       <div className="relative flex flex-col items-center text-center py-3 px-2">
@@ -72,8 +73,14 @@ const VotingCard: React.FC<VotingCardProps> = ({
         </p>
 
         {/* Final Percentage */}
-        <div className="font-black text-[#12499D] text-3xl sm:text-4xl md:text-5xl leading-none mb-2">
-          {finalPercent != 0 ? `${finalPercent}%` : 'Eliminated'}
+        <div
+          className={`font-black text-[#12499D] leading-none mb-2 text-center ${
+            isFinalEliminated
+              ? 'text-lg sm:text-2xl md:text-3xl break-words'
+              : 'text-3xl sm:text-4xl md:text-5xl'
+          }`}
+        >
+          {isFinalEliminated ? 'Eliminated' : `${finalPercent}%`}
         </div>
 
         {/* Total Suara */}
@@ -89,21 +96,27 @@ const VotingCard: React.FC<VotingCardProps> = ({
               {rounds.map((round, idx) => {
                 const percent = round.percentages[candidateNum] ?? 0;
                 const isLast = idx === lastRoundIndex;
+                const isWinningRound = isLast && isWinner;
+                const isLosingRound = isLast && !isWinner;
                 const isEliminated = round.eliminated === candidateNum;
+                const shouldStrike = isEliminated || isLosingRound;
+                const shouldDimChip = isEliminated && !isLast;
                 return (
                   <div
                     key={round.round}
                     className={`
                       flex flex-col items-center justify-center min-w-[28px] sm:min-w-[36px]
-                      ${isLast ? 'bg-[#D6546A]/20 rounded-md px-1 py-0.5' : ''}
-                      ${isEliminated ? 'opacity-40' : ''}
+                      ${isLast ? 'rounded-md px-1 py-0.5' : ''}
+                      ${isWinningRound ? 'bg-[#D6546A]/30' : ''}
+                      ${isLosingRound ? 'bg-[#D6546A]/20' : ''}
+                      ${shouldDimChip ? 'opacity-40' : ''}
                     `}
                   >
-                    <span className="text-[8px] sm:text-[10px] text-[#12499D]/60">
-                      {isLast ? '🏆' : `R${idx + 1}`}
+                    <span className={`text-[8px] sm:text-[10px] ${isLosingRound ? 'text-[#12499D]/40' : 'text-[#12499D]/60'}`}>
+                      {isWinningRound ? '🏆' : `R${idx + 1}`}
                     </span>
-                    <span className={`text-[10px] sm:text-xs font-bold ${isLast ? 'text-[#D6546A]' : 'text-[#12499D]'} ${isEliminated ? 'line-through' : ''}`}>
-                      {percent}%
+                    <span className={`text-[10px] sm:text-xs font-bold ${isWinningRound ? 'text-[#D6546A]' : ''} ${isLosingRound ? 'text-[#12499D]/45' : ''} ${!isWinningRound && !isLosingRound ? 'text-[#12499D]' : ''} ${shouldStrike ? 'line-through' : ''}`}>
+                      {percent}% 
                     </span>
                   </div>
                 );
@@ -135,7 +148,7 @@ const VotingCard: React.FC<VotingCardProps> = ({
             {election.kotakKosongVotes} suara
           </p>
           <p className="text-[#12499D]/60 text-[10px] sm:text-xs">
-            ({Math.round((election.kotakKosongVotes / election.totalVotes) * 100) || 0}%)
+            ({Math.round((election.kotakKosongVotes / election.totalVotes) * 10000)/100 || 0}%)
           </p>
         </div>
 
