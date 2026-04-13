@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import AzureADProvider from "next-auth/providers/azure-ad";
 import { PrismaClient } from "@prisma/client";
-import { programStudi } from "~/lib/constant/jurusan";
+import { programStudi, TPB_BATCH_YEAR } from "~/lib/constant/jurusan";
 
 const prisma = new PrismaClient();
 
@@ -109,8 +109,8 @@ export default NextAuth({
         const fakultas = matchedProgram?.fakultasKode ?? "SPS";
         let himpunan = matchedProgram?.himpunan ?? null;
 
-        // Check if the 4-5th extracted number from the email is 24
-        if (email.substring(3, 5) === "24") {
+        // Check if the 4-5th extracted number from the email is the TPB batch year
+        if (email.substring(3, 5) === TPB_BATCH_YEAR) {
           himpunan = null;
         }
 

@@ -1,3 +1,6 @@
+//NOTE: SELALU update TPB_BATCH_YEAR tiap tahun ya!!!
+export const TPB_BATCH_YEAR = "25";
+
 export const fakultas = [
   { kode: "STEI-K", nama: "Sekolah Teknik Elektro dan Informatika" },
   { kode: "FMIPA", nama: "Fakultas Matematika dan Ilmu Pengetahuan Alam" },
