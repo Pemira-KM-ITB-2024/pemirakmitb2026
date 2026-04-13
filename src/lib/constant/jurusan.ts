@@ -100,6 +100,7 @@ export const programStudi: ProgramStudi[] = [
   { kode: "143", nama: "Teknik Pangan", fakultasKode: "FTI", himpunan: "HMPG ITB" },
   { kode: "144", nama: "Manajemen Rekayasa", fakultasKode: "FTI", himpunan: "MTI ITB" },
   { kode: "145", nama: "Teknik Bioenergi dan Kemurgi", fakultasKode: "FTI", himpunan: "HMTB (RINUVA) ITB" },
+  { kode: "194", nama: "Teknik Industri (Cirebon)", fakultasKode: "FTI", himpunan: "MTI ITB"},
   { kode: "230", nama: "Pascasarjana", fakultasKode: "FTI", himpunan: "" },
   { kode: "233", nama: "Pascasarjana", fakultasKode: "FTI", himpunan: "" },
   { kode: "234", nama: "Pascasarjana", fakultasKode: "FTI", himpunan: "" },
